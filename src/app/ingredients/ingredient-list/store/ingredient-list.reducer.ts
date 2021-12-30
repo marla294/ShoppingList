@@ -1,4 +1,5 @@
 import { Ingredient } from "../../ingredient.model";
+import * as IngredientListActions from "./ingredient-list.actions";
 
 export interface State {
     ingredients: Ingredient[];
@@ -12,7 +13,16 @@ const initialState: State = {
 };
 
 export function ingredientListReducer(
-    state: State = initialState
+    state: State = initialState,
+    action: IngredientListActions.IngredientListActions
 ) {
-    return state;
+    switch (action.type) {
+        case IngredientListActions.ADD_INGREDIENT:
+            return {
+                ...state,
+                ingredients: [...state.ingredients, action.payload]
+            };
+        default:
+            return state;
+    }
 }
