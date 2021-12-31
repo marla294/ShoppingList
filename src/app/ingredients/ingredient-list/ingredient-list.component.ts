@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Ingredient } from '../ingredient.model';
 
 @Component({
-  selector: 'app-ingredient-list',
+  selector: 'ingredient-list',
   templateUrl: './ingredient-list.component.html',
   styleUrls: ['./ingredient-list.component.css']
 })
