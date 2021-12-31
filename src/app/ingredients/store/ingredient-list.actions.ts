@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { Ingredient } from "../../ingredient.model";
+import { Ingredient } from "../ingredient.model";
 
 export const ADD_INGREDIENT = '[Ingredient List] Add Ingredient';
 

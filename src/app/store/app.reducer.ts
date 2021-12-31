@@ -1,7 +1,7 @@
 import * as fromShoppingList from '../shopping-list/store/shopping-list.reducer';
 import * as fromAuth from '../auth/store/auth.reducer';
 import * as fromRecipes from '../recipes/store/recipe.reducer';
-import * as fromIngredients from '../ingredients/ingredient-list/store/ingredient-list.reducer';
+import * as fromIngredients from '../ingredients/store/ingredient-list.reducer';
 import { ActionReducerMap } from '@ngrx/store';
 
 export interface AppState {

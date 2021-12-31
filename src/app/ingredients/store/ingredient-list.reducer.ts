@@ -1,4 +1,4 @@
-import { Ingredient } from "../../ingredient.model";
+import { Ingredient } from "../ingredient.model";
 import * as IngredientListActions from "./ingredient-list.actions";
 
 export interface State {
