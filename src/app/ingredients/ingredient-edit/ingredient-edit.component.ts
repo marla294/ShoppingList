@@ -19,9 +19,58 @@ import * as IngredientListActions from "../store/ingredient-list.actions";
 
     constructor(private store: Store<fromApp.AppState>) { }
 
+    ngOnInit(): void {
+        this.subscription = this.store.select('ingredients').subscribe(stateData => {
+            if (stateData.editedIngredientIndex > -1) {
+                this.editMode = true;
+                this.editedItem = stateData.editedIngredient;
+                this.ingForm.setValue({
+                    name: this.editedItem.name,
+                    amount: this.editedItem.amount,
+                });
+            } 
+            else {
+                this.editMode = false;
+            }
+        });
+      }
+
+    onSubmit(form: NgForm) {
+        const value = form.value;
+        const newIngredient = new Ingredient(value.name, value.amount);
+        if (this.editMode) {
+            this.store.dispatch(
+                new IngredientListActions.UpdateIngredient(newIngredient)
+            );
+        }
+        else {
+            this.store.dispatch(
+                new IngredientListActions.AddIngredient(newIngredient)
+            );
+        }
+        this.editMode = false;
+        form.reset();
+    }
+
     onClear() {
         this.ingForm.reset();
         this.editMode = false;
         this.store.dispatch(new IngredientListActions.StopEdit());
+    }
+
+    onDelete() {
+        if (this.editMode) {
+            this.store.dispatch(
+                new IngredientListActions.DeleteIngredient()
+            );
+        }
+        this.onClear();
+    }
+    
+      ngOnDestroy() {
+        this.subscription.unsubscribe();
+        this.store.dispatch(
+            new IngredientListActions.StopEdit()
+        );
       }
   }
