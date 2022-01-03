@@ -1,1 +1,14 @@
-<p>Ingredient List</p>
+<div class="row">
+    <div class="col-xs-10">
+        <ingredient-edit></ingredient-edit>
+        <hr>
+        <ul class="list-group">
+            <a 
+                class="list-group-item" 
+                style="cursor: pointer;"
+                *ngFor="let ingredient of (ingredients | async).ingredients; let i = index"
+                (click)="onEditItem(i)">
+                {{ ingredient.name }} {{ ingredient.amount }}</a>
+        </ul>
+    </div>
+</div>
