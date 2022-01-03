@@ -56,5 +56,6 @@ export type IngredientListActions = AddIngredient
 | AddIngredients 
 | UpdateIngredient 
 | DeleteIngredient
+| SetIngredients
 | StartEdit
 | StopEdit;

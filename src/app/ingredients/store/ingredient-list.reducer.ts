@@ -53,6 +53,11 @@ export function ingredientListReducer(
                     return igIndex !== state.editedIngredientIndex;
                 })
             };
+        case IngredientListActions.SET_INGREDIENTS:
+            return {
+                ...state,
+                ingredients: [...action.payload]
+            };
         case IngredientListActions.START_EDIT:
             return {
                 ...state,
