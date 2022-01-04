@@ -24,19 +24,19 @@ export class IngredientListEffects {
         );
     });
 
-    // storeRecipes = createEffect(() => {
-    //     return this.actions$.pipe(
-    //         ofType(RecipesActions.STORE_RECIPES),
-    //         withLatestFrom(this.store.select('recipes')),
-    //         switchMap(([actionData, recipesState]) => {
-    //             return this.http
-    //             .put(
-    //                 'https://ng-recipe-app-8ece4-default-rtdb.firebaseio.com/recipes.json', 
-    //                 recipesState.recipes
-    //             )
-    //         })
-    //     );
-    // }, {dispatch: false});
+    storeIngredients = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(IngredientActions.STORE_INGREDIENTS),
+            withLatestFrom(this.store.select('ingredients')),
+            switchMap(([actionData, ingredientsState]) => {
+                return this.http
+                .put(
+                    'https://ng-recipe-app-8ece4-default-rtdb.firebaseio.com/ingredients.json', 
+                    ingredientsState.ingredients
+                )
+            })
+        );
+    }, {dispatch: false});
 
     constructor(private actions$: Actions, private http: HttpClient, private store: Store<fromApp.AppState>) {}
 }
