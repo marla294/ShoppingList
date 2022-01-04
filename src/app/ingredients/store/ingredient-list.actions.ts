@@ -9,6 +9,7 @@ export const DELETE_INGREDIENT = '[Ingredient List] Delete Ingredient';
 export const SET_INGREDIENTS = '[Ingredient List] Set Ingredients';
 export const START_EDIT = '[Ingredient List] Start Edit';
 export const STOP_EDIT = '[Ingredient List] Stop Edit';
+export const STORE_INGREDIENTS = '[Ingredient List] Store Ingredients';
 
 export class AddIngredient implements Action {
     readonly type = ADD_INGREDIENT;
@@ -52,10 +53,15 @@ export class StopEdit implements Action {
     readonly type = STOP_EDIT;
 }
 
+export class StoreIngredients implements Action {
+    readonly type = STORE_INGREDIENTS;
+}
+
 export type IngredientListActions = AddIngredient
 | AddIngredients 
 | UpdateIngredient 
 | DeleteIngredient
 | SetIngredients
 | StartEdit
-| StopEdit;
+| StopEdit
+| StoreIngredients;
