@@ -54,9 +54,19 @@ export function ingredientListReducer(
             const updatedIngredients = [...state.ingredients];
             updatedIngredients[state.editedIngredientIndex] = updatedIngredient;
 
+            const updatedIngredientsSorted = updatedIngredients.sort((a, b) => {
+                if (a.name < b.name) {
+                    return -1;
+                }
+                if (a.name > b.name) {
+                    return 1;
+                }
+                return 0;
+            });
+
             return {
                 ...state,
-                ingredients: updatedIngredients,
+                ingredients: updatedIngredientsSorted,
                 editedIngredientIndex: -1,
                 editedIngredient: null
             };
