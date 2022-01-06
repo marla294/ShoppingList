@@ -16,6 +16,16 @@ const initialState: State = {
       editedIngredientIndex: -1,
 };
 
+const ingredientListSort = (a, b) => {
+    if (a.name < b.name) {
+        return -1;
+    }
+    if (a.name > b.name) {
+        return 1;
+    }
+    return 0;
+};
+
 export function ingredientListReducer(
     state: State = initialState,
     action: IngredientListActions.IngredientListActions
@@ -26,15 +36,7 @@ export function ingredientListReducer(
                 ...state,
                 ingredients: [...state.ingredients, action.payload]
             };
-            const ingredientsSorted = ingredientList.ingredients.sort((a, b) => {
-                if (a.name < b.name) {
-                    return -1;
-                }
-                if (a.name > b.name) {
-                    return 1;
-                }
-                return 0;
-            });
+            const ingredientsSorted = ingredientList.ingredients.sort(ingredientListSort);
             ingredientList = {
                 ...ingredientList,
                 ingredients: ingredientsSorted
@@ -54,15 +56,7 @@ export function ingredientListReducer(
             const updatedIngredients = [...state.ingredients];
             updatedIngredients[state.editedIngredientIndex] = updatedIngredient;
 
-            const updatedIngredientsSorted = updatedIngredients.sort((a, b) => {
-                if (a.name < b.name) {
-                    return -1;
-                }
-                if (a.name > b.name) {
-                    return 1;
-                }
-                return 0;
-            });
+            const updatedIngredientsSorted = updatedIngredients.sort(ingredientListSort);
 
             return {
                 ...state,
