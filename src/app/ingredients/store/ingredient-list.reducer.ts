@@ -22,10 +22,24 @@ export function ingredientListReducer(
 ) {
     switch (action.type) {
         case IngredientListActions.ADD_INGREDIENT:
-            return {
+            let ingredientList = {
                 ...state,
                 ingredients: [...state.ingredients, action.payload]
             };
+            const ingredientsSorted = ingredientList.ingredients.sort((a, b) => {
+                if (a.name < b.name) {
+                    return -1;
+                }
+                if (a.name > b.name) {
+                    return 1;
+                }
+                return 0;
+            });
+            ingredientList = {
+                ...ingredientList,
+                ingredients: ingredientsSorted
+            }; 
+            return ingredientList;
         case IngredientListActions.ADD_INGREDIENTS:
             return {
                 ...state,
