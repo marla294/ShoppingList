@@ -26,7 +26,6 @@ import * as IngredientListActions from "../store/ingredient-list.actions";
                 this.editedItem = stateData.editedIngredient;
                 this.ingForm.setValue({
                     name: this.editedItem.name,
-                    amount: this.editedItem.amount,
                     units: this.editedItem.units ?? "",
                     groceryStore: this.editedItem.groceryStore ?? "",
                 });
@@ -39,7 +38,7 @@ import * as IngredientListActions from "../store/ingredient-list.actions";
 
     onSubmit(form: NgForm) {
         const value = form.value;
-        const newIngredient = new Ingredient(value.name, value.amount, value.units, value.groceryStore);
+        const newIngredient = new Ingredient(value.name, null, value.units, value.groceryStore);
         if (this.editMode) {
             this.store.dispatch(
                 new IngredientListActions.UpdateIngredient(newIngredient)
