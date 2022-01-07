@@ -1,20 +1,18 @@
-<div class="row">
-    <div class="col-xs-10">
-        <ingredient-edit></ingredient-edit>
-        <hr>
-        <ul class="list-group">
-            <a 
-                class="list-group-item clearfix" 
-                style="cursor: pointer;"
-                *ngFor="let ingredient of (ingredients | async).ingredients; let i = index"
-                (click)="onEditItem(i)">
-                <div class="pull-left">
-                    <h4 class="list-group-item-heading">{{ ingredient.name }}</h4>
-                    <p class="list-group-item-text"><label>Units: </label> &nbsp;{{ ingredient.units }}</p>
-                    <p class="list-group-item-text"><label>Store: </label> &nbsp;{{ ingredient.groceryStore }}</p>
-                    <p class="list-group-item-text"><label>Aisle: </label> &nbsp;{{ ingredient.aisle }}</p>
-                </div>
-            </a>
-        </ul>
-    </div>
+<div class="container">
+    <ingredient-edit></ingredient-edit>
+    <hr>
+    <ul class="list-group">
+        <a 
+            class="list-group-item clearfix" 
+            style="cursor: pointer;"
+            *ngFor="let ingredient of (ingredients | async).ingredients; let i = index"
+            (click)="onEditItem(i)">
+            <div class="pull-left">
+                <h4 class="list-group-item-heading">{{ ingredient.name }}</h4>
+                <p class="list-group-item-text"><label>Units: </label> &nbsp;{{ ingredient.units }}</p>
+                <p class="list-group-item-text"><label>Store: </label> &nbsp;{{ ingredient.groceryStore }}</p>
+                <p class="list-group-item-text"><label>Aisle: </label> &nbsp;{{ ingredient.aisle }}</p>
+            </div>
+        </a>
+    </ul>
 </div>
