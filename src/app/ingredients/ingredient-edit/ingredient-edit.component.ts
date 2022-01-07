@@ -19,6 +19,32 @@ import * as IngredientListActions from "../store/ingredient-list.actions";
 
     constructor(private store: Store<fromApp.AppState>) { }
 
+    units = [
+        "box",
+        "gallon",
+        "oz",
+        "pack",
+        "tbsp",
+        "tsp",
+    ];
+
+    groceryStores = [
+        "Amazon",
+        "HyVee",
+        "Family Fare",
+        "Whole Foods",
+    ];
+
+    aisles = [
+        "Bakery",
+        "Canned Goods",
+        "Dairy",
+        "Meat",
+        "Online",
+        "Pharmacy",
+        "Produce",
+    ];
+
     ngOnInit(): void {
         this.subscription = this.store.select('ingredients').subscribe(stateData => {
             if (stateData.editedIngredientIndex > -1) {

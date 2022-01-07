@@ -21,31 +21,42 @@
             <div class="row">
                 <div class="col-xs-4 form-group">
                     <label for="units">Units</label>
-                    <input 
-                        type="text" 
+                    <select
+                        type="text"
                         id="units"
                         class="form-control"
                         name="units"
                         ngModel>
+                        <option *ngFor="let unit of units" [value]="unit">
+                            {{unit}}
+                        </option>
+                    </select>
                 </div>
                 <div class="col-xs-4 form-group">
                     <label for="groceryStore">Store</label>
-                    <input 
-                        type="text" 
+                    <select
+                        type="text"
                         id="groceryStore"
                         class="form-control"
                         name="groceryStore"
                         ngModel>
+                        <option *ngFor="let groceryStore of groceryStores" [value]="groceryStore">
+                            {{groceryStore}}
+                        </option>
+                    </select>
                 </div>
                 <div class="col-xs-4 form-group">
                     <label for="aisle">Aisle<span class="required">&nbsp;*</span></label>
-                    <input 
-                        type="text" 
+                    <select
+                        type="text"
                         id="aisle"
                         class="form-control"
                         name="aisle"
-                        ngModel
-                        required>
+                        ngModel>
+                        <option *ngFor="let aisle of aisles" [value]="aisle">
+                            {{aisle}}
+                        </option>
+                    </select>
                 </div>
             </div>
             <div class="row">
