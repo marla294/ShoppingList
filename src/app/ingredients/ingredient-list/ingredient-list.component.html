@@ -1,6 +1,11 @@
 <div class="container">
     <ingredient-edit></ingredient-edit>
     <hr>
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Ingredients</h3>
+        </div>
+    </div>
     <ul class="list-group">
         <a 
             class="list-group-item clearfix" 
@@ -9,9 +14,9 @@
             (click)="onEditItem(i)">
             <div class="pull-left">
                 <h4 class="list-group-item-heading">{{ ingredient.name }}</h4>
-                <p class="list-group-item-text"><label>Units: </label> &nbsp;{{ ingredient.units }}</p>
-                <p class="list-group-item-text"><label>Store: </label> &nbsp;{{ ingredient.groceryStore }}</p>
-                <p class="list-group-item-text"><label>Aisle: </label> &nbsp;{{ ingredient.aisle }}</p>
+                <p *ngIf="ingredient.units" class="list-group-item-text"><label>Units: </label> &nbsp;{{ ingredient.units }}</p>
+                <p *ngIf="ingredient.groceryStore" class="list-group-item-text"><label>Store: </label> &nbsp;{{ ingredient.groceryStore }}</p>
+                <p *ngIf="ingredient.aisle" class="list-group-item-text"><label>Aisle: </label> &nbsp;{{ ingredient.aisle }}</p>
             </div>
         </a>
     </ul>
