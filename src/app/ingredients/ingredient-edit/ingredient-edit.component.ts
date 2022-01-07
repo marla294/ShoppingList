@@ -28,6 +28,7 @@ import * as IngredientListActions from "../store/ingredient-list.actions";
                     name: this.editedItem.name,
                     units: this.editedItem.units ?? "",
                     groceryStore: this.editedItem.groceryStore ?? "",
+                    aisle: this.editedItem.aisle ?? ""
                 });
             } 
             else {
@@ -38,7 +39,7 @@ import * as IngredientListActions from "../store/ingredient-list.actions";
 
     onSubmit(form: NgForm) {
         const value = form.value;
-        const newIngredient = new Ingredient(value.name, null, value.units, value.groceryStore);
+        const newIngredient = new Ingredient(value.name, null, value.units, value.groceryStore, value.aisle);
         if (this.editMode) {
             this.store.dispatch(
                 new IngredientListActions.UpdateIngredient(newIngredient)
