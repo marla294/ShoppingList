@@ -19,12 +19,17 @@ export class RecipeEffects {
                 )
             }),
             map(recipes => {
-                return recipes.map(recipe => {
-                    return {
-                        ...recipe, 
-                        ingredients: recipe.ingredients ? recipe.ingredients : []
-                    };
-                });
+                if (recipes) {
+                    return recipes.map(recipe => {
+                        return {
+                            ...recipe, 
+                            ingredients: recipe.ingredients ? recipe.ingredients : []
+                        };
+                    });
+                }
+                else {
+                    return null;
+                }
             }),
             map(recipes => {
                 return new RecipesActions.SetRecipes(recipes);
