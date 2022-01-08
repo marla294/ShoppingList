@@ -6,16 +6,30 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import * as RecipesActions from './recipe.actions';
 import * as fromApp from '../../store/app.reducer';
+import { Subscription } from 'rxjs';
 
 @Injectable()
 export class RecipeEffects {
+    private userSub: Subscription;
+
     fetchRecipes = createEffect(() => {
         return this.actions$.pipe(
             ofType(RecipesActions.FETCH_RECIPES),
             switchMap(() => {
+                let userId: any;
+
+                this.userSub = this.store.select('auth')
+                    .pipe(map(authState => {
+                        return authState.user;
+                    }))
+                    .subscribe(user => {
+                        userId = user.id;
+                    });
+
+                this.userSub.unsubscribe();
                 return this.http
                 .get<Recipe[]>(
-                    'https://ng-recipe-app-8ece4-default-rtdb.firebaseio.com/recipes.json'
+                    `https://ng-recipe-app-8ece4-default-rtdb.firebaseio.com/${userId}-recipes.json`
                 )
             }),
             map(recipes => {
@@ -42,9 +56,21 @@ export class RecipeEffects {
             ofType(RecipesActions.STORE_RECIPES),
             withLatestFrom(this.store.select('recipes')),
             switchMap(([actionData, recipesState]) => {
+                let userId: any;
+
+                this.userSub = this.store.select('auth')
+                    .pipe(map(authState => {
+                        return authState.user;
+                    }))
+                    .subscribe(user => {
+                        userId = user.id;
+                    });
+
+                this.userSub.unsubscribe();
+
                 return this.http
                 .put(
-                    'https://ng-recipe-app-8ece4-default-rtdb.firebaseio.com/recipes.json', 
+                    `https://ng-recipe-app-8ece4-default-rtdb.firebaseio.com/${userId}-recipes.json`, 
                     recipesState.recipes
                 )
             })

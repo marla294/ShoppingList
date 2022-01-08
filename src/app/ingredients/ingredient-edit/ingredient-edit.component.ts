@@ -21,7 +21,8 @@ import * as IngredientListActions from "../store/ingredient-list.actions";
 
     units = [
         "box",
-        "gallon",
+        "can(s)",
+        "gallon(s)",
         "oz",
         "pack",
         "tbsp",
