@@ -21,12 +21,16 @@ export function recipeReducer(state = initialState, action: RecipesActions.Recip
             else {
                 return null;
             }
-            
         case RecipesActions.ADD_RECIPE:
-            return {
-                ...state,
-                recipes: [...state.recipes, action.payload]
-            };
+            if (action.payload) {
+                return {
+                    ...state,
+                    recipes: [...state.recipes, action.payload]
+                };
+            }
+            else {
+                return null;
+            }
         case RecipesActions.UPDATE_RECIPE:
             const updatedRecipe = {
                 ...state.recipes[action.payload.index],
