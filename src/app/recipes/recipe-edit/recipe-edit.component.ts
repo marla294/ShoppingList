@@ -16,6 +16,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   id: number;
   editMode = false;
   recipeForm: FormGroup;
+  editIngredient = false;
 
   private storeSub: Subscription;
 
@@ -53,6 +54,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   onAddIngredient() {
+    this.editIngredient = true;
     (<FormArray>this.recipeForm.get('ingredients')).push(
       new FormGroup({
         'name': new FormControl(null, Validators.required),
