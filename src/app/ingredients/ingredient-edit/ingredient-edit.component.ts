@@ -23,6 +23,8 @@ import * as IngredientListActions from "../store/ingredient-list.actions";
         "box",
         "can(s)",
         "gallon(s)",
+        "lb(s)",
+        "link(s)",
         "oz",
         "pack",
         "tbsp",
