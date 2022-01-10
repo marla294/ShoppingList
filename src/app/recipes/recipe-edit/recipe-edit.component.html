@@ -75,10 +75,18 @@
                     [formGroupName]="i"
                     style="margin-top: 10px">
                         <div class="col-xs-8">
-                            <input
+                            <!-- <input
                             type="text"
                             class="form-control"
-                            formControlName="name">
+                            formControlName="name"> -->
+                            <select
+                                type="text"
+                                class="form-control"
+                                formControlName="name">
+                                <option *ngFor="let ingredientName of ingredientsDropdown" [value]="name">
+                                    {{ingredientName}}
+                                </option>
+                            </select>
                         </div>
                         <div class="col-xs-2">
                             <input

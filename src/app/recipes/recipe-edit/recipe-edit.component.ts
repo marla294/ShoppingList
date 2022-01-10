@@ -17,8 +17,10 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   editMode = false;
   recipeForm: FormGroup;
   editIngredient = false;
+  ingredientsDropdown: string[];
 
   private storeSub: Subscription;
+  private ingredientSub: Subscription;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -33,6 +35,12 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
             this.initForm();
           }
         );
+
+    this.ingredientSub = this.store.select('ingredients').subscribe(stateData => {
+      if (stateData.ingredients) {
+        this.ingredientsDropdown = stateData.ingredients.map(ingredient => ingredient.name);
+      }
+    });
   }
 
   onSubmit() {
@@ -81,6 +89,9 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.storeSub) {
       this.storeSub.unsubscribe();
+    }
+    if (this.ingredientSub) {
+      this.ingredientSub.unsubscribe();
     }
   }
 
