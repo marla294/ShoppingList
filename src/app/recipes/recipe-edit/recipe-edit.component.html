@@ -57,6 +57,18 @@
             </div>
             <div class="row">
                 <div class="col-xs-12" formArrayName="ingredients">
+                    <div
+                        class="row"
+                        *ngIf="controls">
+                        <div
+                            class="col-xs-8">
+                            Name
+                        </div>
+                        <div
+                            class="col-xs-2">
+                            Amount
+                        </div>
+                    </div>
                     <div 
                     class="row"
                     *ngFor="let ingredientCtrl of controls; let i = index"
