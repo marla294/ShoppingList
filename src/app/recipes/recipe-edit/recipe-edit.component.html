@@ -74,13 +74,14 @@
                     *ngFor="let ingredientCtrl of controls; let i = index"
                     [formGroupName]="i"
                     style="margin-top: 10px">
-                        <div class="col-xs-8">
+                        <div class="col-xs-6">
                             <select
                                 type="text"
                                 class="form-control"
-                                formControlName="name">
-                                <option *ngFor="let ingredientName of ingredientsDropdown" [value]="ingredientName">
-                                    {{ingredientName}}
+                                formControlName="name"
+                                ngModel (ngModelChange)="mySelectHandler($event)">
+                                <option *ngFor="let ingredient of ingredients" [value]="ingredient.name">
+                                    {{ingredient.name}}
                                 </option>
                             </select>
                         </div>

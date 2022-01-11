@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import * as RecipesActions from '../store/recipe.actions';
+import { Ingredient } from 'src/app/ingredients/ingredient.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -17,7 +18,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   editMode = false;
   recipeForm: FormGroup;
   editIngredient = false;
-  ingredientsDropdown: string[];
+  ingredients: Ingredient[];
 
   private storeSub: Subscription;
   private ingredientSub: Subscription;
@@ -38,7 +39,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
     this.ingredientSub = this.store.select('ingredients').subscribe(stateData => {
       if (stateData.ingredients) {
-        this.ingredientsDropdown = stateData.ingredients.map(ingredient => ingredient.name);
+        this.ingredients = [...stateData.ingredients];
       }
     });
   }
@@ -93,6 +94,10 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     if (this.ingredientSub) {
       this.ingredientSub.unsubscribe();
     }
+  }
+
+  mySelectHandler($event) {
+    debugger;
   }
 
   private initForm() {
