@@ -71,6 +71,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
           Validators.required,
           Validators.pattern(/^[1-9]+[0-9]*$/)
         ]),
+        'unit': new FormControl(null)
       })
     );
   }
@@ -96,8 +97,15 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  mySelectHandler($event) {
-    debugger;
+  mySelectHandler($event, index) {
+    if (this.ingredients && this.ingredients.length > 0) {
+      let ingredient = this.ingredients.filter(ingredient => ingredient.name === $event)[0];
+      if (ingredient) {
+        let unit = ingredient.units;
+        (<FormArray>this.recipeForm.get('ingredients'))["controls"][index].patchValue({unit});
+      }
+    }
+    
   }
 
   private initForm() {
@@ -124,6 +132,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
                   Validators.required,
                   Validators.pattern(/^[1-9]+[0-9]*$/)
                 ]),
+                'unit': new FormControl(null),
               })
             );
           }

@@ -23,10 +23,18 @@ export function recipeReducer(state = initialState, action: RecipesActions.Recip
             }
         case RecipesActions.ADD_RECIPE:
             if (action.payload) {
-                return {
-                    ...state,
-                    recipes: [...state.recipes, action.payload]
-                };
+                if (state.recipes !== null) {
+                    return {
+                        ...state,
+                        recipes: [...state.recipes, action.payload]
+                    };
+                }
+                else {
+                    return {
+                        ...state,
+                        recipes: [action.payload]
+                    };
+                }
             }
             else {
                 return null;

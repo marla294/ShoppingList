@@ -61,12 +61,16 @@
                         class="row"
                         *ngIf="editIngredient">
                         <div
-                            class="col-xs-8">
+                            class="col-xs-6">
                             Name
                         </div>
                         <div
                             class="col-xs-2">
                             Amount
+                        </div>
+                        <div
+                            class="col-xs-2">
+                            Units
                         </div>
                     </div>
                     <div 
@@ -79,7 +83,7 @@
                                 type="text"
                                 class="form-control"
                                 formControlName="name"
-                                ngModel (ngModelChange)="mySelectHandler($event)">
+                                (ngModelChange)="mySelectHandler($event, i)">
                                 <option *ngFor="let ingredient of ingredients" [value]="ingredient.name">
                                     {{ingredient.name}}
                                 </option>
@@ -90,6 +94,12 @@
                             type="text"
                             class="form-control"
                             formControlName="amount">
+                        </div>
+                        <div class="col-xs-2">
+                            <input
+                            type="text"
+                            class="form-control"
+                            formControlName="unit">
                         </div>
                         <div class="col-xs-2">
                             <button 
