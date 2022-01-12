@@ -32,7 +32,7 @@ export function ingredientListReducer(
 ) {
     switch (action.type) {
         case IngredientListActions.ADD_INGREDIENT:
-            let ingFind = state.ingredients.filter(ing => ing.name === action.payload.name);
+            let ingFind = state.ingredients.filter(ing => ing.name.toLowerCase().trim() === action.payload.name.toLowerCase().trim());
             if (ingFind.length === 0) {
                 let ingredients = [...state.ingredients, action.payload];
                 const ingredientsSorted = ingredients.sort(ingredientListSort);

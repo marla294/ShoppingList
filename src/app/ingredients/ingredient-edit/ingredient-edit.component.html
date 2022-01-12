@@ -52,7 +52,8 @@
                         id="aisle"
                         class="form-control"
                         name="aisle"
-                        ngModel>
+                        ngModel
+                        required>
                         <option *ngFor="let aisle of aisles" [value]="aisle">
                             {{aisle}}
                         </option>
