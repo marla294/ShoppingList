@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import * as RecipesActions from '../store/recipe.actions';
+import * as IngredientActions from '../../ingredients/store/ingredient-list.actions';
 import { Ingredient } from 'src/app/ingredients/ingredient.model';
 
 @Component({
@@ -28,6 +29,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
               private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
+    this.store.dispatch(new RecipesActions.FetchRecipes());
+    this.store.dispatch(new IngredientActions.FetchIngredients());
     this.route.params
         .subscribe(
           (params: Params) => {
@@ -46,19 +49,14 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.editMode) {
-      this.store.dispatch(
-        new RecipesActions.UpdateRecipe({
+      this.store.dispatch(new RecipesActions.UpdateRecipe({
           index: this.id,
           newRecipe: this.recipeForm.value
-        })
-      );
+        }));
     } else {
-      this.store.dispatch(
-        new RecipesActions.AddRecipe(
-          this.recipeForm.value
-        )
-      );
+      this.store.dispatch(new RecipesActions.AddRecipe(this.recipeForm.value));
     }
+    this.store.dispatch(new RecipesActions.StoreRecipes());
     this.onCancel();
   }
 
