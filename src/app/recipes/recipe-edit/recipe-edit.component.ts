@@ -29,8 +29,13 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
               private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
-    this.store.dispatch(new RecipesActions.FetchRecipes());
     this.store.dispatch(new IngredientActions.FetchIngredients());
+    this.ingredientSub = this.store.select('ingredients').subscribe(stateData => {
+      debugger;
+      if (stateData.ingredients) {
+        this.ingredients = [...stateData.ingredients];
+      }
+    });
     this.route.params
         .subscribe(
           (params: Params) => {
@@ -39,12 +44,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
             this.initForm();
           }
         );
-
-    this.ingredientSub = this.store.select('ingredients').subscribe(stateData => {
-      if (stateData.ingredients) {
-        this.ingredients = [...stateData.ingredients];
-      }
-    });
   }
 
   onSubmit() {
@@ -123,6 +122,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         recipeDescription = recipe.description;
         if (recipe['ingredients']) {
           for (let ingredient of recipe.ingredients) {
+            const ing = this.ingredients.filter(i => i.name == ingredient.name)[0];
+            debugger;
             recipeIngredients.push(
               new FormGroup({
                 'name': new FormControl(ingredient.name, Validators.required),
@@ -130,7 +131,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
                   Validators.required,
                   Validators.pattern(/^[1-9]+[0-9]*$/)
                 ]),
-                'unit': new FormControl(null),
+                'unit': new FormControl(ing.units),
               })
             );
           }
