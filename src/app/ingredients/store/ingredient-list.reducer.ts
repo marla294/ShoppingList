@@ -32,16 +32,18 @@ export function ingredientListReducer(
 ) {
     switch (action.type) {
         case IngredientListActions.ADD_INGREDIENT:
-            let ingredientList = {
-                ...state,
-                ingredients: [...state.ingredients, action.payload]
-            };
-            const ingredientsSorted = ingredientList.ingredients.sort(ingredientListSort);
-            ingredientList = {
-                ...ingredientList,
-                ingredients: ingredientsSorted
-            }; 
-            return ingredientList;
+            let ingFind = state.ingredients.filter(ing => ing.name === action.payload.name);
+            if (ingFind.length === 0) {
+                let ingredients = [...state.ingredients, action.payload];
+                const ingredientsSorted = ingredients.sort(ingredientListSort);
+                return {
+                    ...state,
+                    ingredients: ingredientsSorted
+                };
+            }
+            else {
+                return state;
+            }
         case IngredientListActions.ADD_INGREDIENTS:
             return {
                 ...state,
