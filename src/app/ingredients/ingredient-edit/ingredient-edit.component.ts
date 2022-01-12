@@ -22,6 +22,7 @@ import * as IngredientListActions from "../store/ingredient-list.actions";
     units = [
         "box",
         "can(s)",
+        "each",
         "gallon(s)",
         "lb(s)",
         "link(s)",
@@ -49,6 +50,7 @@ import * as IngredientListActions from "../store/ingredient-list.actions";
     ];
 
     ngOnInit(): void {
+        this.store.dispatch(new IngredientListActions.FetchIngredients());
         this.subscription = this.store.select('ingredients').subscribe(stateData => {
             if (stateData.editedIngredientIndex > -1) {
                 this.editMode = true;
@@ -70,15 +72,12 @@ import * as IngredientListActions from "../store/ingredient-list.actions";
         const value = form.value;
         const newIngredient = new Ingredient(value.name, null, value.units, value.groceryStore, value.aisle);
         if (this.editMode) {
-            this.store.dispatch(
-                new IngredientListActions.UpdateIngredient(newIngredient)
-            );
+            this.store.dispatch(new IngredientListActions.UpdateIngredient(newIngredient));
         }
         else {
-            this.store.dispatch(
-                new IngredientListActions.AddIngredient(newIngredient)
-            );
+            this.store.dispatch(new IngredientListActions.AddIngredient(newIngredient));
         }
+        this.store.dispatch(new IngredientListActions.StoreIngredients());
         this.editMode = false;
         form.reset();
     }
@@ -91,9 +90,8 @@ import * as IngredientListActions from "../store/ingredient-list.actions";
 
     onDelete() {
         if (this.editMode) {
-            this.store.dispatch(
-                new IngredientListActions.DeleteIngredient()
-            );
+            this.store.dispatch(new IngredientListActions.DeleteIngredient());
+            this.store.dispatch(new IngredientListActions.StoreIngredients());
         }
         this.onClear();
     }
