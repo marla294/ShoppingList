@@ -43,7 +43,7 @@
             <li 
                 class="list-group-item"
                 *ngFor="let ingredient of recipe.ingredients"
-            >{{ ingredient.name }} - {{ ingredient.amount }}</li>
+            >{{ ingredient.name }} - {{ ingredient.amount }} {{ingredient.unit}}</li>
         </ul>
     </div>
 </div>
