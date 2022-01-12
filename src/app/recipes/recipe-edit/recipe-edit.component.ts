@@ -31,7 +31,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store.dispatch(new IngredientActions.FetchIngredients());
     this.ingredientSub = this.store.select('ingredients').subscribe(stateData => {
-      debugger;
       if (stateData.ingredients) {
         this.ingredients = [...stateData.ingredients];
       }
@@ -123,7 +122,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         if (recipe['ingredients']) {
           for (let ingredient of recipe.ingredients) {
             const ing = this.ingredients.filter(i => i.name == ingredient.name)[0];
-            debugger;
             recipeIngredients.push(
               new FormGroup({
                 'name': new FormControl(ingredient.name, Validators.required),
