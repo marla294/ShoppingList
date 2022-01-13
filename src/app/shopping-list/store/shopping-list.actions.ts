@@ -3,6 +3,7 @@ import { Ingredient } from 'src/app/ingredients/ingredient.model';
 
 export const ADD_INGREDIENT = '[Shopping List] Add Ingredient';
 export const ADD_INGREDIENTS = '[Shopping List] Add Ingredients';
+export const FETCH_INGREDIENTS = '[Shopping List] Fetch Ingredients';
 export const UPDATE_INGREDIENT = '[Shopping List] Update Ingredient';
 export const DELETE_INGREDIENT = '[Shopping List] Delete Ingredient';
 export const START_EDIT = '[Shopping List] Start Edit';
@@ -18,6 +19,10 @@ export class AddIngredients implements Action {
     readonly type = ADD_INGREDIENTS;
 
     constructor(public payload: Ingredient[]) {}
+}
+
+export class FetchIngredients implements Action {
+    readonly type = FETCH_INGREDIENTS;
 }
 
 export class UpdateIngredient implements Action {
