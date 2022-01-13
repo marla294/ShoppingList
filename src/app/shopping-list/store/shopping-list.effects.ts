@@ -13,7 +13,12 @@ export class ShoppingListEffects {
 
     storeShoppingList = createEffect(() => {
         return this.actions$.pipe(
-            ofType(ShoppingListActions.ADD_INGREDIENTS, ShoppingListActions.ADD_INGREDIENT),
+            ofType(
+                ShoppingListActions.ADD_INGREDIENTS, 
+                ShoppingListActions.ADD_INGREDIENT,
+                ShoppingListActions.UPDATE_INGREDIENT,
+                ShoppingListActions.DELETE_INGREDIENT
+            ),
             withLatestFrom(this.store.select('shoppingList')),
             switchMap(([actionData, shoppingListState]) => {
                 let userId: any;
