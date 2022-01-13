@@ -3,9 +3,10 @@ import { Ingredient } from 'src/app/ingredients/ingredient.model';
 
 export const ADD_INGREDIENT = '[Shopping List] Add Ingredient';
 export const ADD_INGREDIENTS = '[Shopping List] Add Ingredients';
+export const DELETE_INGREDIENT = '[Shopping List] Delete Ingredient';
 export const FETCH_INGREDIENTS = '[Shopping List] Fetch Ingredients';
 export const UPDATE_INGREDIENT = '[Shopping List] Update Ingredient';
-export const DELETE_INGREDIENT = '[Shopping List] Delete Ingredient';
+export const SET_INGREDIENTS = '[Shopping List] Set Ingredients';
 export const START_EDIT = '[Shopping List] Start Edit';
 export const STOP_EDIT = '[Shopping List] Stop Edit';
 
@@ -21,6 +22,10 @@ export class AddIngredients implements Action {
     constructor(public payload: Ingredient[]) {}
 }
 
+export class DeleteIngredient implements Action {
+    readonly type = DELETE_INGREDIENT;
+}
+
 export class FetchIngredients implements Action {
     readonly type = FETCH_INGREDIENTS;
 }
@@ -31,8 +36,10 @@ export class UpdateIngredient implements Action {
     constructor(public payload: Ingredient) {}
 }
 
-export class DeleteIngredient implements Action {
-    readonly type = DELETE_INGREDIENT;
+export class SetIngredients implements Action {
+    readonly type = SET_INGREDIENTS;
+
+    constructor(public payload: Ingredient[]) {}
 }
 
 export class StartEdit implements Action { 
@@ -47,7 +54,9 @@ export class StopEdit implements Action {
 
 export type ShoppingListActions = AddIngredient 
 | AddIngredients 
-| UpdateIngredient 
 | DeleteIngredient
+| FetchIngredients
+| UpdateIngredient 
+| SetIngredients
 | StartEdit
 | StopEdit;
