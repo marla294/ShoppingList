@@ -1,10 +1,12 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, Input, ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 import { Ingredient } from "../ingredient.model";
 import * as fromApp from '../../store/app.reducer';
 import * as IngredientListActions from "../store/ingredient-list.actions";
+import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
     selector: 'ingredient-edit',
@@ -13,6 +15,7 @@ import * as IngredientListActions from "../store/ingredient-list.actions";
   })
   export class IngredientEditComponent {
     @ViewChild('f', {static: false}) ingForm: NgForm;
+    @Input() isShoppingList = false;
     subscription: Subscription;
     editMode = false;
     editedItem: Ingredient;
@@ -50,7 +53,7 @@ import * as IngredientListActions from "../store/ingredient-list.actions";
     ];
 
     ngOnInit(): void {
-        this.store.dispatch(new IngredientListActions.FetchIngredients());
+        this.fetchIngredients();
         this.subscription = this.store.select('ingredients').subscribe(stateData => {
             if (stateData.editedIngredientIndex > -1) {
                 this.editMode = true;
@@ -72,12 +75,12 @@ import * as IngredientListActions from "../store/ingredient-list.actions";
         const value = form.value;
         const newIngredient = new Ingredient(value.name, null, value.units, value.groceryStore, value.aisle);
         if (this.editMode) {
-            this.store.dispatch(new IngredientListActions.UpdateIngredient(newIngredient));
+            this.updateIngredient(newIngredient);
         }
         else {
-            this.store.dispatch(new IngredientListActions.AddIngredient(newIngredient));
+            this.addIngredient(newIngredient);
         }
-        this.store.dispatch(new IngredientListActions.StoreIngredients());
+        this.storeIngredients();
         this.editMode = false;
         form.reset();
     }
@@ -85,21 +88,73 @@ import * as IngredientListActions from "../store/ingredient-list.actions";
     onClear() {
         this.ingForm.reset();
         this.editMode = false;
-        this.store.dispatch(new IngredientListActions.StopEdit());
+        this.stopEdit();
     }
 
     onDelete() {
         if (this.editMode) {
-            this.store.dispatch(new IngredientListActions.DeleteIngredient());
-            this.store.dispatch(new IngredientListActions.StoreIngredients());
+            this.deleteIngredient();
+            this.storeIngredients();
         }
         this.onClear();
     }
     
-      ngOnDestroy() {
-        this.subscription.unsubscribe();
-        this.store.dispatch(
-            new IngredientListActions.StopEdit()
-        );
-      }
+    ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.stopEdit();
+    }
+
+    private fetchIngredients() {
+        if (!this.isShoppingList) {
+            this.store.dispatch(new IngredientListActions.FetchIngredients());
+        }
+        else {
+            this.store.dispatch(new ShoppingListActions.FetchIngredients());
+        }
+    }
+
+    private updateIngredient(ingredient: Ingredient) {
+        if (!this.isShoppingList) {
+            this.store.dispatch(new IngredientListActions.UpdateIngredient(ingredient));
+        }
+        else {
+            this.store.dispatch(new ShoppingListActions.UpdateIngredient(ingredient));
+        }
+    }
+
+    private addIngredient(ingredient: Ingredient) {
+        if (!this.isShoppingList) {
+            this.store.dispatch(new IngredientListActions.AddIngredient(ingredient));
+        }
+        else {
+            this.store.dispatch(new ShoppingListActions.AddIngredient(ingredient));
+        }
+    }
+
+    private storeIngredients() {
+        if (!this.isShoppingList) {
+            this.store.dispatch(new IngredientListActions.StoreIngredients());
+        }
+        else {
+            // this.store.dispatch(new ShoppingListActions.StoreIngredients());
+        }
+    }
+
+    private deleteIngredient() {
+        if (!this.isShoppingList) {
+            this.store.dispatch(new IngredientListActions.DeleteIngredient());
+        }
+        else {
+            this.store.dispatch(new ShoppingListActions.DeleteIngredient());
+        }
+    }
+
+    private stopEdit() {
+        if (!this.isShoppingList) {
+            this.store.dispatch(new IngredientListActions.StopEdit());
+        }
+        else {
+            this.store.dispatch(new ShoppingListActions.StopEdit());
+        }
+    }
   }
