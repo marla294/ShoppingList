@@ -6,7 +6,6 @@ import { Ingredient } from "../ingredient.model";
 import * as fromApp from '../../store/app.reducer';
 import * as IngredientListActions from "../store/ingredient-list.actions";
 import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
-import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
     selector: 'ingredient-edit',
