@@ -33,8 +33,7 @@ export class ShoppingListEffects {
                 )
             }),
             map(ingredients => {
-                // return new ShoppingListActions.SetIngredients(ingredients);
-                return null;
+                return new ShoppingListActions.SetIngredients(ingredients);
             })
         );
     });
@@ -45,7 +44,8 @@ export class ShoppingListEffects {
                 ShoppingListActions.ADD_INGREDIENTS, 
                 ShoppingListActions.ADD_INGREDIENT,
                 ShoppingListActions.UPDATE_INGREDIENT,
-                ShoppingListActions.DELETE_INGREDIENT
+                ShoppingListActions.DELETE_INGREDIENT,
+                ShoppingListActions.STORE_INGREDIENTS
             ),
             withLatestFrom(this.store.select('shoppingList')),
             switchMap(([actionData, shoppingListState]) => {

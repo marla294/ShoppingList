@@ -53,21 +53,40 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
 
     ngOnInit(): void {
         this.fetchIngredients();
-        this.subscription = this.store.select('ingredients').subscribe(stateData => {
-            if (stateData.editedIngredientIndex > -1) {
-                this.editMode = true;
-                this.editedItem = stateData.editedIngredient;
-                this.ingForm.setValue({
-                    name: this.editedItem.name,
-                    units: this.editedItem.units ?? "",
-                    groceryStore: this.editedItem.groceryStore ?? "",
-                    aisle: this.editedItem.aisle ?? ""
-                });
-            } 
-            else {
-                this.editMode = false;
-            }
-        });
+        if (this.isShoppingList) {
+            this.subscription = this.store.select('shoppingList').subscribe(stateData => {
+                if (stateData.editedIngredientIndex > -1) {
+                    this.editMode = true;
+                    this.editedItem = stateData.editedIngredient;
+                    this.ingForm.setValue({
+                        name: this.editedItem.name,
+                        units: this.editedItem.units ?? "",
+                        groceryStore: this.editedItem.groceryStore ?? "",
+                        aisle: this.editedItem.aisle ?? ""
+                    });
+                } 
+                else {
+                    this.editMode = false;
+                }
+            });
+        }
+        else {
+            this.subscription = this.store.select('ingredients').subscribe(stateData => {
+                if (stateData.editedIngredientIndex > -1) {
+                    this.editMode = true;
+                    this.editedItem = stateData.editedIngredient;
+                    this.ingForm.setValue({
+                        name: this.editedItem.name,
+                        units: this.editedItem.units ?? "",
+                        groceryStore: this.editedItem.groceryStore ?? "",
+                        aisle: this.editedItem.aisle ?? ""
+                    });
+                } 
+                else {
+                    this.editMode = false;
+                }
+            });
+        }
       }
 
     onSubmit(form: NgForm) {
@@ -135,7 +154,7 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
             this.store.dispatch(new IngredientListActions.StoreIngredients());
         }
         else {
-            // this.store.dispatch(new ShoppingListActions.StoreIngredients());
+            this.store.dispatch(new ShoppingListActions.StoreIngredients());
         }
     }
 

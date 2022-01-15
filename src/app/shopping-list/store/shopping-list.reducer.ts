@@ -55,6 +55,7 @@ export function shoppingListReducer(
                 ingredients: [...action.payload]
             };
         case ShoppingListActions.START_EDIT:
+            debugger;
             return {
                 ...state,
                 editedIngredientIndex: action.payload,
