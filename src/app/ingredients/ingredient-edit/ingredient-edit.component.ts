@@ -62,7 +62,8 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
                         name: this.editedItem.name,
                         units: this.editedItem.units ?? "",
                         groceryStore: this.editedItem.groceryStore ?? "",
-                        aisle: this.editedItem.aisle ?? ""
+                        aisle: this.editedItem.aisle ?? "",
+                        amount: this.editedItem.amount ?? ""
                     });
                 } 
                 else {
