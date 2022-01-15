@@ -7,7 +7,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 form-group">
+                <div class="col-xs-8 form-group">
                     <label for="name">Name<span class="required">&nbsp;*</span></label>
                     <input 
                         type="text" 
@@ -16,6 +16,15 @@
                         name="name"
                         ngModel
                         required>
+                </div>
+                <div class="col-xs-4 form-group" *ngIf="isShoppingList">
+                    <label for="name">Amount</label>
+                    <input 
+                        type="text" 
+                        id="amount" 
+                        class="form-control"
+                        name="amount"
+                        ngModel>
                 </div>
             </div>
             <div class="row">
