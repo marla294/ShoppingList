@@ -9,6 +9,7 @@ export const UPDATE_INGREDIENT = '[Shopping List] Update Ingredient';
 export const SET_INGREDIENTS = '[Shopping List] Set Ingredients';
 export const START_EDIT = '[Shopping List] Start Edit';
 export const STOP_EDIT = '[Shopping List] Stop Edit';
+export const STORE_INGREDIENTS = '[Shopping List] Store Ingredients';
 
 export class AddIngredient implements Action {
     readonly type = ADD_INGREDIENT;
@@ -50,6 +51,10 @@ export class StartEdit implements Action {
 
 export class StopEdit implements Action { 
     readonly type = STOP_EDIT;
+}
+
+export class StoreIngredients implements Action {
+    readonly type = STORE_INGREDIENTS;
 }
 
 export type ShoppingListActions = AddIngredient 

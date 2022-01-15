@@ -9,8 +9,7 @@ import { IngredientEditComponent } from "../ingredients/ingredient-edit/ingredie
 @NgModule({
     declarations: [
         ShoppingListComponent,
-        ShoppingEditComponent,
-        IngredientEditComponent
+        ShoppingEditComponent
     ],
     imports: [
         FormsModule,
