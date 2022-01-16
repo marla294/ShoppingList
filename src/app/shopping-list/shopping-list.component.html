@@ -2,11 +2,12 @@
     <div class="col-xs-10">
         <ingredient-edit [isShoppingList]="true"></ingredient-edit>
         <hr>
+        <h4 *ngFor="let groceryStore of groceryStores">{{groceryStore}}</h4>
         <ul class="list-group">
             <a 
                 class="list-group-item" 
                 style="cursor: pointer;"
-                *ngFor="let ingredient of (ingredients | async).ingredients; let i = index"
+                *ngFor="let ingredient of ingredients; let i = index"
                 (click)="onEditItem(i)">
                 {{ ingredient.name }} {{ ingredient.amount }}</a>
         </ul>
