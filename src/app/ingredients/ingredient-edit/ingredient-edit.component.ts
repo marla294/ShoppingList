@@ -93,6 +93,9 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
     onSubmit(form: NgForm) {
         const value = form.value;
         const newIngredient = new Ingredient(value.name, null, value.units, value.groceryStore, value.aisle);
+        if (this.isShoppingList) {
+            newIngredient.amount = value.amount;
+        }
         if (this.editMode) {
             this.updateIngredient(newIngredient);
         }
