@@ -2,14 +2,19 @@
     <div class="col-xs-10">
         <ingredient-edit [isShoppingList]="true"></ingredient-edit>
         <hr>
-        <h4 *ngFor="let groceryStore of groceryStores">{{groceryStore}}</h4>
-        <ul class="list-group">
-            <a 
-                class="list-group-item" 
-                style="cursor: pointer;"
-                *ngFor="let ingredient of ingredients; let i = index"
-                (click)="onEditItem(i)">
-                {{ ingredient.name }} {{ ingredient.amount }}</a>
-        </ul>
+        <div *ngFor="let groceryStore of groceryStores">
+            <h4>{{groceryStore}}</h4>
+            <ul class="list-group">
+                <li *ngFor="let ingredient of ingredients; let i = index">
+                    <a 
+                        class="list-group-item" 
+                        style="cursor: pointer;"
+                        *ngIf="ingredient.groceryStore === groceryStore"
+                        (click)="onEditItem(i)">
+                        {{ ingredient.name }} {{ ingredient.amount }}
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
