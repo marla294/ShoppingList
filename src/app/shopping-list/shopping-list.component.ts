@@ -13,6 +13,7 @@ import * as fromApp from '../store/app.reducer';
 export class ShoppingListComponent implements OnInit {
     ingredients: Ingredient[];
     groceryStores: string[] = [];
+    ingredientsByGroceryStore: any = [];
     ingredientsSubscription: Subscription;
 
     constructor(private store: Store<fromApp.AppState>) { }
@@ -21,6 +22,7 @@ export class ShoppingListComponent implements OnInit {
         this.ingredientsSubscription = this.store.select('shoppingList').subscribe(state => {
             this.ingredients = state.ingredients;
             this.getGroceryStores();
+            this.groupIngredientsByGroceryStore();
         });
     }
 
@@ -28,6 +30,7 @@ export class ShoppingListComponent implements OnInit {
         this.store.dispatch(new ShoppingListActions.StartEdit(index));
 
         this.getGroceryStores();
+        this.groupIngredientsByGroceryStore();
     }
 
     private getGroceryStores() {
@@ -38,6 +41,15 @@ export class ShoppingListComponent implements OnInit {
             if (isNewGroceryStore) {
                 this.groceryStores.push(ingredient.groceryStore);
             }
+        });
+    }
+
+    private groupIngredientsByGroceryStore() {
+        this.ingredientsByGroceryStore = [];
+        this.groceryStores.forEach(groceryStore => {
+            const groceryStoreIngredients = this.ingredients.filter(ingredient => ingredient.groceryStore === groceryStore);
+
+            this.ingredientsByGroceryStore.push({groceryStore: groceryStore, ingredients: groceryStoreIngredients});
         });
     }
 
