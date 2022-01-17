@@ -13,14 +13,27 @@ const initialState: State = {
     editedIngredientIndex: -1,
 };
 
+const shoppingListSort = (a, b) => {
+    if (a.name < b.name) {
+        return -1;
+    }
+    if (a.name > b.name) {
+        return 1;
+    }
+    return 0;
+};
+
 export function shoppingListReducer(
     state: State = initialState, 
     action: ShoppingListActions.ShoppingListActions) {
     switch (action.type) {
         case ShoppingListActions.ADD_INGREDIENT:
+            let ingredients = [...state.ingredients, action.payload];
+            const ingredientsSorted = ingredients.sort(shoppingListSort);
+
             return {
                 ...state,
-                ingredients: [...state.ingredients, action.payload]
+                ingredients: ingredientsSorted
             };
         case ShoppingListActions.ADD_INGREDIENTS:
             return {
@@ -42,10 +55,11 @@ export function shoppingListReducer(
             };
             const updatedIngredients = [...state.ingredients];
             updatedIngredients[state.editedIngredientIndex] = updatedIngredient;
+            const updatedIngredientsSorted = updatedIngredients.sort(shoppingListSort);
 
             return {
                 ...state,
-                ingredients: updatedIngredients,
+                ingredients: updatedIngredientsSorted,
                 editedIngredientIndex: -1,
                 editedIngredient: null
             };

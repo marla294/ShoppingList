@@ -48,6 +48,7 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
         "Bakery",
         "Canned Goods",
         "Dairy",
+        "Frozen",
         "Meat",
         "Online",
         "Pharmacy",
