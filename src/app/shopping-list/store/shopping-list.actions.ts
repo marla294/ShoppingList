@@ -46,7 +46,7 @@ export class SetIngredients implements Action {
 export class StartEdit implements Action { 
     readonly type = START_EDIT;
 
-    constructor(public payload: number) {}
+    constructor(public payload: Ingredient) {}
 }
 
 export class StopEdit implements Action { 

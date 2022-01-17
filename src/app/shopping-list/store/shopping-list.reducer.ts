@@ -55,10 +55,14 @@ export function shoppingListReducer(
                 ingredients: [...action.payload]
             };
         case ShoppingListActions.START_EDIT:
+            const editedIngredientIndex = state.ingredients.findIndex(ingredient => {
+                return ingredient === action.payload;
+            });
+
             return {
                 ...state,
-                editedIngredientIndex: action.payload,
-                editedIngredient: {...state.ingredients[action.payload]}
+                editedIngredientIndex: editedIngredientIndex,
+                editedIngredient: {...state.ingredients[editedIngredientIndex]}
             };
         case ShoppingListActions.STOP_EDIT:
             return {
