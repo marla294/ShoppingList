@@ -42,13 +42,14 @@
                     </select>
                 </div>
                 <div class="col-xs-4 form-group">
-                    <label for="groceryStore">Store</label>
+                    <label for="groceryStore">Store<span class="required">&nbsp;*</span></label>
                     <select
                         type="text"
                         id="groceryStore"
                         class="form-control"
                         name="groceryStore"
-                        ngModel>
+                        ngModel
+                        required>
                         <option *ngFor="let groceryStore of groceryStores" [value]="groceryStore">
                             {{groceryStore}}
                         </option>

@@ -22,14 +22,17 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
     constructor(private store: Store<fromApp.AppState>) { }
 
     units = [
+        "bottle(s)",
         "box",
         "can(s)",
         "each",
+        "jar(s)",
         "gallon(s)",
         "lb(s)",
         "link(s)",
         "oz",
         "pack",
+        "pint",
         "tbsp",
         "tsp",
     ];
