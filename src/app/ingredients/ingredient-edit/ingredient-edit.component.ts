@@ -62,6 +62,7 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
                 if (stateData.editedIngredientIndex > -1) {
                     this.editMode = true;
                     this.editedItem = stateData.editedIngredient;
+                    debugger;
                     this.ingForm.setValue({
                         name: this.editedItem.name,
                         units: this.editedItem.units ?? "",
