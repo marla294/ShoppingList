@@ -69,6 +69,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         ]),
         'units': new FormControl(null),
         'groceryStore': new FormControl(null),
+        'aisle': new FormControl(null),
       })
     );
   }
@@ -100,6 +101,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       if (ingredient) {
         (<FormArray>this.recipeForm.get('ingredients'))["controls"][index].patchValue({units: ingredient.units});
         (<FormArray>this.recipeForm.get('ingredients'))["controls"][index].patchValue({groceryStore: ingredient.groceryStore});
+        (<FormArray>this.recipeForm.get('ingredients'))["controls"][index].patchValue({aisle: ingredient.aisle});
       }
     }
     
@@ -132,7 +134,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
                   Validators.pattern(/^[1-9]+[0-9]*$/)
                 ]),
                 'units': new FormControl(ing.units),
-                'groceryStore': new FormControl(ing.groceryStore)
+                'groceryStore': new FormControl(ing.groceryStore),
+                'aisle': new FormControl(ing.aisle),
               })
             );
           }
