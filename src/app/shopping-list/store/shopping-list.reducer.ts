@@ -28,15 +28,30 @@ export function shoppingListReducer(
     action: ShoppingListActions.ShoppingListActions) {
     switch (action.type) {
         case ShoppingListActions.ADD_INGREDIENT:
-            let ingredients = [...state.ingredients, action.payload];
-            const ingredientsSorted = ingredients.sort(shoppingListSort);
+            const ingredientIndex = state.ingredients.findIndex(ingredient => ingredient.name === action.payload.name);
+            
+            if (ingredientIndex > -1) {
+                const existingIngredient = state.ingredients[ingredientIndex];
+                const updatedIngredient = {
+                    ...existingIngredient,
+                    amount: +action.payload.amount + +existingIngredient.amount
+                };
 
-            return {
-                ...state,
-                ingredients: ingredientsSorted
-            };
+                let updatedIngredients = [...state.ingredients];
+                updatedIngredients[ingredientIndex] = updatedIngredient;
+
+                return {
+                    ...state,
+                    ingredients: updatedIngredients.sort(shoppingListSort)
+                };
+            }
+            else {
+                return {
+                    ...state,
+                    ingredients: [...state.ingredients, action.payload].sort(shoppingListSort)
+                };
+            }
         case ShoppingListActions.ADD_INGREDIENTS:
-            debugger;
             return {
                 ...state,
                 ingredients: [...state.ingredients, ...action.payload]
