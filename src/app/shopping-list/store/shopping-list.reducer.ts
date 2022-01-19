@@ -36,6 +36,7 @@ export function shoppingListReducer(
                 ingredients: ingredientsSorted
             };
         case ShoppingListActions.ADD_INGREDIENTS:
+            debugger;
             return {
                 ...state,
                 ingredients: [...state.ingredients, ...action.payload]
