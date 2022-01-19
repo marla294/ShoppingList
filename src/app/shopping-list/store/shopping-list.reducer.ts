@@ -52,9 +52,27 @@ export function shoppingListReducer(
                 };
             }
         case ShoppingListActions.ADD_INGREDIENTS:
+            let updatedAddIngredients = [...state.ingredients];
+            action.payload.forEach(ingredient => {
+                const ingredientIndex = updatedAddIngredients.findIndex(ing => ing.name === ingredient.name);
+
+                if (ingredientIndex > -1) {
+                    const existingIngredient = updatedAddIngredients[ingredientIndex];
+                    const updatedIngredient = {
+                        ...existingIngredient,
+                        amount: +ingredient.amount + +existingIngredient.amount
+                    };
+    
+                    updatedAddIngredients[ingredientIndex] = updatedIngredient;
+                }
+                else {
+                    updatedAddIngredients = [...updatedAddIngredients, ingredient];
+                }
+            });
+
             return {
                 ...state,
-                ingredients: [...state.ingredients, ...action.payload]
+                ingredients: updatedAddIngredients.sort(shoppingListSort)
             };
         case ShoppingListActions.DELETE_INGREDIENT:
             return {
