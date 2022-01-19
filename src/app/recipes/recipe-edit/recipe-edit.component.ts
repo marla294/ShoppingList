@@ -109,7 +109,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
   private initForm() {
     let recipeName = '';
-    let recipeImagePath = '';
     let recipeDescription = '';
     let recipeIngredients = new FormArray([]);
 
@@ -120,7 +119,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         });
       })).subscribe(recipe => {
         recipeName = recipe.name;
-        recipeImagePath = recipe.imagePath;
         recipeDescription = recipe.description;
         if (recipe['ingredients']) {
           for (let ingredient of recipe.ingredients) {
@@ -145,7 +143,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
     this.recipeForm = new FormGroup({
       'name': new FormControl(recipeName, Validators.required),
-      'imagePath': new FormControl(recipeImagePath, Validators.required),
       'description': new FormControl(recipeDescription),
       'ingredients': recipeIngredients,
     });
