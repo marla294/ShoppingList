@@ -10,7 +10,7 @@
                     style="cursor: pointer;"
                     *ngFor="let ingredient of group.ingredients"
                     (click)="onEditItem(ingredient)">
-                    {{ ingredient.name }} {{ ingredient.amount }}
+                    {{ ingredient.name }} - {{ ingredient.amount }} {{ ingredient.units }}
                 </a>
             </ul>
         </div>
