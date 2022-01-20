@@ -23,18 +23,21 @@
                         required
                         pattern="^[1-9]+[0-9]*$">
                 </div>
-                <!-- <input
-                        type="hidden"
-                        class="form-control"
-                        formControlName="aisle"> -->
-                <!-- <input
-                        type="hidden"
-                        class="form-control"
-                        formControlName="units">
                 <input
                         type="hidden"
                         class="form-control"
-                        formControlName="groceryStore"> -->
+                        name="aisle"
+                        ngModel>
+                <input
+                        type="hidden"
+                        class="form-control"
+                        name="units"
+                        ngModel>
+                <input
+                        type="hidden"
+                        class="form-control"
+                        name="groceryStore"
+                        ngModel>
                 <div class="row">
                     <div class="col-xs-12">
                         <button class="btn btn-success" type="submit" [disabled]="!f.valid">{{ editMode ? 'Update' : 'Add'}}</button>
