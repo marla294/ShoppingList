@@ -109,7 +109,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
   private initForm() {
     let recipeName = '';
-    let recipeDescription = '';
     let recipeIngredients = new FormArray([]);
 
     if (this.editMode) {
@@ -119,11 +118,9 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         });
       })).subscribe(recipe => {
         recipeName = recipe.name;
-        recipeDescription = recipe.description;
         if (recipe['ingredients']) {
           for (let ingredient of recipe.ingredients) {
             const ing = this.ingredients.filter(i => i.name == ingredient.name)[0];
-            debugger;
             recipeIngredients.push(
               new FormGroup({
                 'name': new FormControl(ingredient.name, Validators.required),
@@ -143,7 +140,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
     this.recipeForm = new FormGroup({
       'name': new FormControl(recipeName, Validators.required),
-      'description': new FormControl(recipeDescription),
       'ingredients': recipeIngredients,
     });
   }
