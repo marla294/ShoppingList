@@ -7,7 +7,7 @@ import * as ShoppingListActions from '../store/shopping-list.actions';
 import * as fromApp from '../../store/app.reducer';
 
 @Component({
-  selector: 'app-shopping-edit',
+  selector: 'shopping-edit',
   templateUrl: './shopping-edit.component.html',
   styleUrls: ['./shopping-edit.component.css']
 })
@@ -27,6 +27,9 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
         this.slForm.setValue({
           name: this.editedItem.name,
           amount: this.editedItem.amount,
+          groceryStore: this.editedItem.groceryStore ?? "",
+          aisle: this.editedItem.aisle ?? "",
+          units: this.editedItem.units ?? "",
         });
       } else {
         this.editMode = false;
@@ -36,7 +39,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   onSubmit(form: NgForm) {
     const value = form.value;
-    const newIngredient = new Ingredient(value.name, value.amount);
+    const newIngredient = new Ingredient(value.name, value.amount, value.units, value.groceryStore, value.aisle);
     if (this.editMode) {
       this.store.dispatch(
         new ShoppingListActions.UpdateIngredient(newIngredient)
