@@ -17,7 +17,6 @@ export class IngredientListEffects {
             ofType(IngredientActions.FETCH_INGREDIENTS),
             switchMap(() => {
                 let userId: any;
-
                 this.userSub = this.store.select('auth')
                     .pipe(map(authState => {
                         return authState.user;
