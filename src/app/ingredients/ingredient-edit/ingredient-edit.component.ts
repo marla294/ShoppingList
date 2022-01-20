@@ -135,7 +135,7 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
             this.store.dispatch(new IngredientListActions.FetchIngredients());
         }
         else {
-            this.store.dispatch(new ShoppingListActions.FetchIngredients());
+            this.store.dispatch(new ShoppingListActions.FetchShoppingList());
         }
     }
 

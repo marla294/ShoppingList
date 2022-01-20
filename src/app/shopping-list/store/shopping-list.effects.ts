@@ -14,7 +14,7 @@ export class ShoppingListEffects {
 
     fetchShoppingList = createEffect(() => {
         return this.actions$.pipe(
-            ofType(ShoppingListActions.FETCH_INGREDIENTS),
+            ofType(ShoppingListActions.FETCH_SHOPPINGLIST),
             switchMap(() => {
                 let userId: any;
 

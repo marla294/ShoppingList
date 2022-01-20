@@ -4,7 +4,7 @@ import { Ingredient } from 'src/app/ingredients/ingredient.model';
 export const ADD_INGREDIENT = '[Shopping List] Add Ingredient';
 export const ADD_INGREDIENTS = '[Shopping List] Add Ingredients';
 export const DELETE_INGREDIENT = '[Shopping List] Delete Ingredient';
-export const FETCH_INGREDIENTS = '[Shopping List] Fetch Ingredients';
+export const FETCH_SHOPPINGLIST = '[Shopping List] Fetch Shopping List';
 export const UPDATE_INGREDIENT = '[Shopping List] Update Ingredient';
 export const SET_INGREDIENTS = '[Shopping List] Set Ingredients';
 export const START_EDIT = '[Shopping List] Start Edit';
@@ -27,8 +27,8 @@ export class DeleteIngredient implements Action {
     readonly type = DELETE_INGREDIENT;
 }
 
-export class FetchIngredients implements Action {
-    readonly type = FETCH_INGREDIENTS;
+export class FetchShoppingList implements Action {
+    readonly type = FETCH_SHOPPINGLIST;
 }
 
 export class UpdateIngredient implements Action {
@@ -60,7 +60,7 @@ export class StoreIngredients implements Action {
 export type ShoppingListActions = AddIngredient 
 | AddIngredients 
 | DeleteIngredient
-| FetchIngredients
+| FetchShoppingList
 | UpdateIngredient 
 | SetIngredients
 | StartEdit

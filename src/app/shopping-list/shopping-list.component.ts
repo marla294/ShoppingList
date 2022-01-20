@@ -19,7 +19,7 @@ export class ShoppingListComponent implements OnInit {
     constructor(private store: Store<fromApp.AppState>) { }
 
     ngOnInit(): void {
-        this.store.dispatch(new ShoppingListActions.FetchIngredients());
+        this.store.dispatch(new ShoppingListActions.FetchShoppingList());
         this.ingredientsSubscription = this.store.select('shoppingList').subscribe(state => {
             this.ingredients = state.ingredients;
             this.getGroceryStores();
