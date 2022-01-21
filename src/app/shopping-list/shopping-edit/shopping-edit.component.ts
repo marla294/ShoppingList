@@ -23,6 +23,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
+    debugger;
     this.store.dispatch(new IngredientActions.FetchIngredients());
     this.ingredientSub = this.store.select('ingredients').subscribe(stateData => {
       if (stateData.ingredients && stateData.ingredients.length > 0) {
@@ -50,9 +51,13 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     if (this.ingredients && this.ingredients.length > 0) {
       let ingredient = this.ingredients.filter(ingredient => ingredient.name === $event)[0];
       if (ingredient) {
-        this.slForm.setValue({units: ingredient.units});
-        this.slForm.setValue({groceryStore: ingredient.groceryStore});
-        this.slForm.setValue({aisle: ingredient.aisle});
+        this.slForm.setValue({
+          name: $event,
+          amount: "",
+          groceryStore: ingredient.groceryStore ?? "",
+          aisle: ingredient.aisle ?? "",
+          units: ingredient.units ?? "",
+        });
       }
     }
   }
@@ -89,6 +94,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.ingredientSub.unsubscribe();
     this.store.dispatch(new ShoppingListActions.StopEdit());
   }
 

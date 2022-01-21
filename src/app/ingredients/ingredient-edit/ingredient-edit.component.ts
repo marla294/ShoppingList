@@ -51,6 +51,7 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
         "Frozen",
         "Meat",
         "Online",
+        "Paper",
         "Pharmacy",
         "Produce",
     ];
