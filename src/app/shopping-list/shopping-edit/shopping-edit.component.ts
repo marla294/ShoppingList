@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Ingredient } from 'src/app/ingredients/ingredient.model';
 import * as ShoppingListActions from '../store/shopping-list.actions';
+import * as IngredientActions from '../../ingredients/store/ingredient-list.actions';
 import * as fromApp from '../../store/app.reducer';
 
 @Component({
@@ -13,13 +14,21 @@ import * as fromApp from '../../store/app.reducer';
 })
 export class ShoppingEditComponent implements OnInit, OnDestroy {
   @ViewChild('f', {static: false}) slForm: NgForm;
-  subscription: Subscription;
+  private subscription: Subscription;
+  private ingredientSub: Subscription;
   editMode = false;
   editedItem: Ingredient;
+  ingredients: Ingredient[];
 
   constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
+    this.store.dispatch(new IngredientActions.FetchIngredients());
+    this.ingredientSub = this.store.select('ingredients').subscribe(stateData => {
+      if (stateData.ingredients && stateData.ingredients.length > 0) {
+        this.ingredients = [...stateData.ingredients];
+      }
+    });
     this.subscription = this.store.select('shoppingList').subscribe(stateData => {
       if (stateData.editedIngredientIndex > -1) {
         this.editMode = true;
@@ -35,6 +44,17 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
         this.editMode = false;
       }
     });
+  }
+
+  mySelectHandler($event) {
+    if (this.ingredients && this.ingredients.length > 0) {
+      let ingredient = this.ingredients.filter(ingredient => ingredient.name === $event)[0];
+      if (ingredient) {
+        this.slForm.setValue({units: ingredient.units});
+        this.slForm.setValue({groceryStore: ingredient.groceryStore});
+        this.slForm.setValue({aisle: ingredient.aisle});
+      }
+    }
   }
 
   onSubmit(form: NgForm) {
