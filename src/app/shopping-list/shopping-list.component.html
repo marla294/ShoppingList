@@ -1,18 +1,16 @@
-<div class="row">
-    <div class="col-xs-10">
-        <shopping-edit></shopping-edit>
-        <hr>
-        <div *ngFor="let group of ingredientsByGroceryStore">
-            <h4>{{group.groceryStore}}</h4>
-            <ul class="list-group">
-                <a 
-                    class="list-group-item" 
-                    style="cursor: pointer;"
-                    *ngFor="let ingredient of group.ingredients"
-                    (click)="onEditItem(ingredient)">
-                    {{ ingredient.name }} - {{ ingredient.amount }} {{ ingredient.units }}
-                </a>
-            </ul>
-        </div>
+<div class="container">
+    <shopping-edit></shopping-edit>
+    <hr>
+    <div *ngFor="let group of ingredientsByGroceryStore">
+        <h4>{{group.groceryStore}}</h4>
+        <ul class="list-group">
+            <a 
+                class="list-group-item" 
+                style="cursor: pointer;"
+                *ngFor="let ingredient of group.ingredients"
+                (click)="onEditItem(ingredient)">
+                {{ ingredient.name }} - {{ ingredient.amount }} {{ ingredient.units }}
+            </a>
+        </ul>
     </div>
 </div>
