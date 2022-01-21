@@ -29,7 +29,6 @@ export class ShoppingListComponent implements OnInit {
 
     onEditItem(ingredient: Ingredient) {
         this.store.dispatch(new ShoppingListActions.StartEdit(ingredient));
-
         this.getGroceryStores();
         this.groupIngredientsByGroceryStore();
     }

@@ -10,7 +10,7 @@
                     class="form-control"
                     name="name"
                     ngModel
-                    (ngModelChange)="mySelectHandler($event)">
+                    (change)="mySelectHandler($event)">
                         <option *ngFor="let ingredient of ingredients" [value]="ingredient.name">
                             {{ingredient.name}}
                         </option>
