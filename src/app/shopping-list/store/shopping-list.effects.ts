@@ -43,6 +43,7 @@ export class ShoppingListEffects {
             ofType(
                 ShoppingListActions.ADD_INGREDIENTS, 
                 ShoppingListActions.ADD_INGREDIENT,
+                ShoppingListActions.CLEAR_SHOPPINGLIST,
                 ShoppingListActions.UPDATE_INGREDIENT,
                 ShoppingListActions.DELETE_INGREDIENT,
                 ShoppingListActions.STORE_INGREDIENTS
