@@ -33,6 +33,10 @@ export class ShoppingListComponent implements OnInit {
         this.groupIngredientsByGroceryStore();
     }
 
+    onClear() {
+        this.store.dispatch(new ShoppingListActions.ClearShoppingList());
+    }
+
     private getGroceryStores() {
         this.groceryStores = [];
         this.ingredients.forEach(ingredient => {

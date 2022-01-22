@@ -1,6 +1,11 @@
 <div class="container">
     <shopping-edit></shopping-edit>
     <hr>
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-primary" type="button" (click)="onClear()">Clear Shopping List</button>
+        </div>
+    </div>
     <div *ngFor="let group of ingredientsByGroceryStore">
         <h4>{{group.groceryStore}}</h4>
         <ul class="list-group">
