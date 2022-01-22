@@ -74,6 +74,13 @@ export function shoppingListReducer(
                 ...state,
                 ingredients: updatedAddIngredients.sort(shoppingListSort)
             };
+        case ShoppingListActions.CLEAR_SHOPPINGLIST:
+            return { 
+                ...state,
+                ingredients: [],
+                editedIngredientIndex: -1,
+                editedIngredient: null
+            };
         case ShoppingListActions.DELETE_INGREDIENT:
             return {
                 ...state,
