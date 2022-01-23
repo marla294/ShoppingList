@@ -25,6 +25,7 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
         "bottle(s)",
         "box",
         "can(s)",
+        "dozen",
         "each",
         "jar(s)",
         "gallon(s)",
@@ -45,15 +46,25 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
     ];
 
     aisles = [
+        "Baby",
         "Bakery",
         "Canned Goods",
+        "Cheese",
+        "Cleaning",
+        "Condiments",
         "Dairy",
+        "Deli",
         "Frozen",
         "Meat",
         "Online",
         "Paper",
         "Pharmacy",
         "Produce",
+        "Sandwich Things",
+        "Snacks",
+        "Soups",
+        "Spices",
+        "Wellness",
     ];
 
     ngOnInit(): void {
