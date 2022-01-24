@@ -23,6 +23,29 @@ const shoppingListSort = (a, b) => {
     return 0;
 };
 
+const consolidateShoppingList = (ingredient: Ingredient, list: Ingredient[]) => {
+    const matchingIngredients = list.filter(ing => ing.name === ingredient.name);
+
+    if (matchingIngredients.length > 1) {
+        list = list.filter(ing => ing.name !== ingredient.name);
+
+        let totalAmount: number = 0;
+
+        matchingIngredients.forEach(ing => {
+            totalAmount += +ing.amount;
+        });
+
+        let updatedIngredient = {
+            ...ingredient,
+            amount: totalAmount
+        };
+
+        list.push(updatedIngredient);
+    }
+
+    return list;
+};
+
 export function shoppingListReducer(
     state: State = initialState, 
     action: ShoppingListActions.ShoppingListActions) {
@@ -94,8 +117,11 @@ export function shoppingListReducer(
                 ...ingredient,
                 ...action.payload
             };
-            const updatedIngredients = [...state.ingredients];
+            let updatedIngredients = [...state.ingredients];
             updatedIngredients[state.editedIngredientIndex] = updatedIngredient;
+
+            updatedIngredients = consolidateShoppingList(ingredient, updatedIngredients);
+
             const updatedIngredientsSorted = updatedIngredients.sort(shoppingListSort);
 
             return {
