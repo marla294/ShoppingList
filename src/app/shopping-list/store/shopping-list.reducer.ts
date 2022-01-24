@@ -51,29 +51,11 @@ export function shoppingListReducer(
     action: ShoppingListActions.ShoppingListActions) {
     switch (action.type) {
         case ShoppingListActions.ADD_INGREDIENT:
-            const ingredientIndex = state.ingredients.findIndex(ingredient => ingredient.name === action.payload.name);
-            
-            if (ingredientIndex > -1) {
-                const existingIngredient = state.ingredients[ingredientIndex];
-                const updatedIngredient = {
-                    ...existingIngredient,
-                    amount: +action.payload.amount + +existingIngredient.amount
-                };
+            return {
+                ...state,
+                ingredients: consolidateShoppingList(action.payload, [...state.ingredients, action.payload]).sort(shoppingListSort)
+            };
 
-                let updatedIngredients = [...state.ingredients];
-                updatedIngredients[ingredientIndex] = updatedIngredient;
-
-                return {
-                    ...state,
-                    ingredients: updatedIngredients.sort(shoppingListSort)
-                };
-            }
-            else {
-                return {
-                    ...state,
-                    ingredients: [...state.ingredients, action.payload].sort(shoppingListSort)
-                };
-            }
         case ShoppingListActions.ADD_INGREDIENTS:
             let updatedAddIngredients = [...state.ingredients];
             action.payload.forEach(ingredient => {
@@ -120,7 +102,7 @@ export function shoppingListReducer(
             let updatedIngredients = [...state.ingredients];
             updatedIngredients[state.editedIngredientIndex] = updatedIngredient;
 
-            updatedIngredients = consolidateShoppingList(ingredient, updatedIngredients);
+            updatedIngredients = consolidateShoppingList(action.payload, updatedIngredients);
 
             const updatedIngredientsSorted = updatedIngredients.sort(shoppingListSort);
 
