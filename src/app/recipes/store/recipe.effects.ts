@@ -4,7 +4,7 @@ import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { Recipe } from '../recipe.model';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import * as RecipesActions from './recipe.actions';
+import * as RecipeActions from './recipe.actions';
 import * as fromApp from '../../store/app.reducer';
 import { Subscription } from 'rxjs';
 
@@ -14,7 +14,7 @@ export class RecipeEffects {
 
     fetchRecipes = createEffect(() => {
         return this.actions$.pipe(
-            ofType(RecipesActions.FETCH_RECIPES),
+            ofType(RecipeActions.FETCH_RECIPES),
             switchMap(() => {
                 let userId: any;
 
@@ -46,14 +46,14 @@ export class RecipeEffects {
                 }
             }),
             map(recipes => {
-                return new RecipesActions.SetRecipes(recipes);
+                return new RecipeActions.SetRecipes(recipes);
             })
         );
     });
 
     storeRecipes = createEffect(() => {
         return this.actions$.pipe(
-            ofType(RecipesActions.STORE_RECIPES),
+            ofType(RecipeActions.STORE_RECIPES),
             withLatestFrom(this.store.select('recipes')),
             switchMap(([actionData, recipesState]) => {
                 let userId: any;

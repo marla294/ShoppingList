@@ -40,7 +40,7 @@ export class StoreRecipes implements Action {
     readonly type = STORE_RECIPES;
 }
 
-export type RecipesActions = SetRecipes | 
+export type RecipeActions = SetRecipes | 
 FetchRecipes |
 AddRecipe |
 UpdateRecipe |

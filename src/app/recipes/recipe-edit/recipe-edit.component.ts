@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
-import * as RecipesActions from '../store/recipe.actions';
+import * as RecipeActions from '../store/recipe.actions';
 import * as IngredientActions from '../../ingredients/store/ingredient-list.actions';
 import { Ingredient } from 'src/app/ingredients/ingredient.model';
 
@@ -48,14 +48,14 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.editMode) {
-      this.store.dispatch(new RecipesActions.UpdateRecipe({
+      this.store.dispatch(new RecipeActions.UpdateRecipe({
           index: this.id,
           newRecipe: this.recipeForm.value
         }));
     } else {
-      this.store.dispatch(new RecipesActions.AddRecipe(this.recipeForm.value));
+      this.store.dispatch(new RecipeActions.AddRecipe(this.recipeForm.value));
     }
-    this.store.dispatch(new RecipesActions.StoreRecipes());
+    this.store.dispatch(new RecipeActions.StoreRecipes());
     this.onCancel();
   }
 

@@ -1,5 +1,5 @@
 import { Recipe } from "../recipe.model";
-import * as RecipesActions from './recipe.actions';
+import * as RecipeActions from './recipe.actions';
 
 export interface State {
     recipes: Recipe[]
@@ -9,9 +9,9 @@ const initialState: State = {
     recipes: []
 };
 
-export function recipeReducer(state = initialState, action: RecipesActions.RecipesActions) {
+export function recipeReducer(state = initialState, action: RecipeActions.RecipeActions) {
     switch (action.type) {
-        case RecipesActions.SET_RECIPES:
+        case RecipeActions.SET_RECIPES:
             if (action.payload) {
                 return {
                     ...state,
@@ -21,7 +21,7 @@ export function recipeReducer(state = initialState, action: RecipesActions.Recip
             else {
                 return null;
             }
-        case RecipesActions.ADD_RECIPE:
+        case RecipeActions.ADD_RECIPE:
             if (action.payload) {
                 if (state.recipes !== null) {
                     return {
@@ -39,7 +39,7 @@ export function recipeReducer(state = initialState, action: RecipesActions.Recip
             else {
                 return null;
             }
-        case RecipesActions.UPDATE_RECIPE:
+        case RecipeActions.UPDATE_RECIPE:
             const updatedRecipe = {
                 ...state.recipes[action.payload.index],
                 ...action.payload.newRecipe
@@ -52,7 +52,7 @@ export function recipeReducer(state = initialState, action: RecipesActions.Recip
                 ...state,
                 recipes: updatedRecipes
             };
-        case RecipesActions.DELETE_RECIPE:
+        case RecipeActions.DELETE_RECIPE:
             return {
                 ...state,
                 recipes: state.recipes.filter((recipe, index) => {
