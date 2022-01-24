@@ -26,8 +26,6 @@ const shoppingListSort = (a, b) => {
 const consolidateShoppingList = (ingredient: Ingredient, list: Ingredient[]) => {
     const matchingIngredients = list.filter(ing => ing.name === ingredient.name);
 
-    debugger;
-
     if (matchingIngredients.length > 1) {
         list = list.filter(ing => ing.name !== ingredient.name);
 
