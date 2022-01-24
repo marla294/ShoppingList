@@ -7,6 +7,7 @@ const appRoutes: Routes = [
     { path: 'shopping-list', loadChildren: () => import('./shopping-list/shopping-list.module').then(m => m.ShoppingListModule) },
     { path: 'ingredient-list', loadChildren: () => import('./ingredients/ingredients.module').then(m => m.IngredientsModule) },
     { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+    { path: 'units', loadChildren: () => import('./units/units.module').then(m => m.UnitsModule) },
 ];
 
 @NgModule({
