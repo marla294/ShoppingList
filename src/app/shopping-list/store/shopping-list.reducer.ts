@@ -26,6 +26,8 @@ const shoppingListSort = (a, b) => {
 const consolidateShoppingList = (ingredient: Ingredient, list: Ingredient[]) => {
     const matchingIngredients = list.filter(ing => ing.name === ingredient.name);
 
+    debugger;
+
     if (matchingIngredients.length > 1) {
         list = list.filter(ing => ing.name !== ingredient.name);
 
@@ -57,22 +59,9 @@ export function shoppingListReducer(
             };
 
         case ShoppingListActions.ADD_INGREDIENTS:
-            let updatedAddIngredients = [...state.ingredients];
+            let updatedAddIngredients: Ingredient[] = [...state.ingredients];
             action.payload.forEach(ingredient => {
-                const ingredientIndex = updatedAddIngredients.findIndex(ing => ing.name === ingredient.name);
-
-                if (ingredientIndex > -1) {
-                    const existingIngredient = updatedAddIngredients[ingredientIndex];
-                    const updatedIngredient = {
-                        ...existingIngredient,
-                        amount: +ingredient.amount + +existingIngredient.amount
-                    };
-    
-                    updatedAddIngredients[ingredientIndex] = updatedIngredient;
-                }
-                else {
-                    updatedAddIngredients = [...updatedAddIngredients, ingredient];
-                }
+                updatedAddIngredients = consolidateShoppingList(ingredient, [...updatedAddIngredients, ingredient]);
             });
 
             return {
@@ -113,9 +102,16 @@ export function shoppingListReducer(
                 editedIngredient: null
             };
         case ShoppingListActions.SET_INGREDIENTS:
+            debugger;
+            let setIngredients = [];
+
+            if (action.payload) {
+                setIngredients = [...action.payload];
+            }
+
             return {
                 ...state,
-                ingredients: [...action.payload]
+                ingredients: setIngredients
             };
         case ShoppingListActions.START_EDIT:
             const editedIngredientIndex = state.ingredients.findIndex(ingredient => {
