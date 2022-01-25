@@ -71,10 +71,18 @@ export function ingredientListReducer(
                 })
             };
         case IngredientListActions.SET_INGREDIENTS:
-            return {
-                ...state,
-                ingredients: [...action.payload]
-            };
+            if (action.payload) {
+                return {
+                    ...state,
+                    ingredients: [...action.payload]
+                };
+            }
+            else {
+                return {
+                    ...state,
+                    ingredients: []
+                };
+            }
         case IngredientListActions.START_EDIT:
             return {
                 ...state,
