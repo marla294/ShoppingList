@@ -100,7 +100,6 @@ export function shoppingListReducer(
                 editedIngredient: null
             };
         case ShoppingListActions.SET_INGREDIENTS:
-            debugger;
             let setIngredients = [];
 
             if (action.payload) {

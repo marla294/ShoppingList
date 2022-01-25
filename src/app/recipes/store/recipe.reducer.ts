@@ -9,7 +9,9 @@ const initialState: State = {
     recipes: []
 };
 
-export function recipeReducer(state = initialState, action: RecipeActions.RecipeActions) {
+export function recipeReducer(
+    state: State = initialState, 
+    action: RecipeActions.RecipeActions) {
     switch (action.type) {
         case RecipeActions.SET_RECIPES:
             if (action.payload) {
@@ -23,7 +25,7 @@ export function recipeReducer(state = initialState, action: RecipeActions.Recipe
             }
         case RecipeActions.ADD_RECIPE:
             if (action.payload) {
-                if (state.recipes !== null) {
+                if (state && state.recipes !== null) {
                     return {
                         ...state,
                         recipes: [...state.recipes, action.payload]

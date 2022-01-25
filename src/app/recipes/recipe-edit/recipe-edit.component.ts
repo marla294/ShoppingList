@@ -39,8 +39,11 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
             this.ingredientSub = this.store.select('ingredients').subscribe(stateData => {
               if (stateData.ingredients && stateData.ingredients.length > 0) {
                 this.ingredients = [...stateData.ingredients];
-                this.initForm();
               }
+              else {
+                this.ingredients = [];
+              }
+              this.initForm();
             });
           }
         );
@@ -137,7 +140,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         }
       });
     }
-
+    
     this.recipeForm = new FormGroup({
       'name': new FormControl(recipeName, Validators.required),
       'ingredients': recipeIngredients,
