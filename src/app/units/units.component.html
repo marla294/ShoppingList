@@ -5,7 +5,8 @@
         <a 
             class="list-group-item" 
             style="cursor: pointer;"
-            *ngFor="let unit of units">
+            *ngFor="let unit of units"
+            (click)="onEditUnit(unit)">
             {{ unit }}
         </a>
     </ul>

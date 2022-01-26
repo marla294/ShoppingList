@@ -36,6 +36,14 @@ export function unitsReducer(
                 editedUnit: null,
                 editedUnitIndex: -1
             };
+        case UnitsActions.UPDATE_UNIT:
+            let updatedUnits = [...state.units];
+            updatedUnits[state.editedUnitIndex] = action.payload;
+
+            return {
+                ...state,
+                units: updatedUnits
+            };
         default:
             return state;
     }

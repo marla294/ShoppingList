@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
+import * as UnitsActions from './store/units.actions';
 import * as fromApp from '../store/app.reducer';
 
 @Component({
@@ -22,6 +23,10 @@ export class UnitsComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.stateSubscription.unsubscribe();
+    }
+
+    onEditUnit(unit: string) {
+        this.store.dispatch(new UnitsActions.StartEdit(unit));
     }
     
 }
