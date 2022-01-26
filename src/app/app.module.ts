@@ -13,6 +13,7 @@ import { AuthEffects } from './auth/store/auth.effects';
 import { RecipeEffects } from './recipes/store/recipe.effects';
 import { IngredientListEffects } from './ingredients/store/ingredient-list.effects';
 import { ShoppingListEffects } from './shopping-list/store/shopping-list.effects';
+import { UnitsEffects } from './units/store/units.effects';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,13 @@ import { ShoppingListEffects } from './shopping-list/store/shopping-list.effects
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([AuthEffects, RecipeEffects, IngredientListEffects, ShoppingListEffects]),
+    EffectsModule.forRoot([
+      AuthEffects, 
+      RecipeEffects, 
+      IngredientListEffects, 
+      ShoppingListEffects,
+      UnitsEffects,
+    ]),
     SharedModule,
     CoreModule,
   ],
