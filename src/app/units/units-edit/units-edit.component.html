@@ -33,6 +33,13 @@
                         (click)="onDelete()">
                         Delete
                     </button>
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        [disabled]="!f.valid"
+                        (click)="onClear()">
+                        Clear Form
+                    </button>
                 </div>
             </div>
         </form>
