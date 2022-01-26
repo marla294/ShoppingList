@@ -23,7 +23,7 @@ export function unitsReducer(
                 units: [...state.units, action.payload]
             };
         case UnitsActions.START_EDIT:
-            let editedUnitIndex = state.units.findIndex(unit => unit === action.payload);
+            const editedUnitIndex = state.units.findIndex(unit => unit === action.payload);
 
             return {
                 ...state,
@@ -37,7 +37,7 @@ export function unitsReducer(
                 editedUnitIndex: -1
             };
         case UnitsActions.UPDATE_UNIT:
-            let updatedUnits = [...state.units];
+            const updatedUnits = [...state.units];
             updatedUnits[state.editedUnitIndex] = action.payload;
 
             return {
