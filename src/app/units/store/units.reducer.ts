@@ -7,7 +7,7 @@ export interface State {
 }
 
 const initialState: State = {
-    units: [],
+    units: ["test"],
     editedUnit: null,
     editedUnitIndex: -1,
 };

@@ -6,7 +6,28 @@
             </div>
         </div>
         <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    <label for="unit">Unit<span class="required">&nbsp;*</span></label>
+                    <input
+                        type="text"
+                        id="unit"
+                        name="unit"
+                        class="form-control"
+                        ngModel
+                        required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button
+                        type="submit"
+                        class="btn btn-success"
+                        [disabled]="!f.valid">
+                        {{editMode ? 'Update' : 'Add'}}
+                    </button>
+                </div>
+            </div>
         </form>
     </div>
 </div>

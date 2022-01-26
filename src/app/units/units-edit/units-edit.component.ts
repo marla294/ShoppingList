@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -6,10 +6,14 @@ import { NgForm } from '@angular/forms';
     templateUrl: './units-edit.component.html',
     styleUrls: ['./units-edit.component.css']
 })
-export class UnitsEditComponent {
+export class UnitsEditComponent implements OnInit {
     @ViewChild('f', {static: false}) unitEditForm: NgForm;
+    editMode = false;
+
+    ngOnInit(): void {
+    }
 
     onSubmit(form: NgForm) {
-        
+        let value = form.value;
     }
 }
