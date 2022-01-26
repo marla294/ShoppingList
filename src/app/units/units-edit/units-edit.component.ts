@@ -20,6 +20,7 @@ export class UnitsEditComponent implements OnInit {
 
     onSubmit(form: NgForm) {
         let value = form.value;
-        this.store.dispatch(new UnitsActions.AddUnit(value));
+        this.store.dispatch(new UnitsActions.AddUnit(value.unit));
+        form.reset();
     }
 }

@@ -10,18 +10,18 @@ import * as fromApp from '../store/app.reducer';
 })
 export class UnitsComponent implements OnInit, OnDestroy {
     units: string[];
-    unitsSubscription: Subscription;
+    stateSubscription: Subscription;
 
     constructor(private store: Store<fromApp.AppState>) {}
     
     ngOnInit(): void {
-        this.unitsSubscription = this.store.select('units').subscribe(state => {
+        this.stateSubscription = this.store.select('units').subscribe(state => {
             this.units = state.units;
         });
     }
 
     ngOnDestroy(): void {
-        this.unitsSubscription.unsubscribe();
+        this.stateSubscription.unsubscribe();
     }
     
 }

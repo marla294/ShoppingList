@@ -7,7 +7,7 @@ export interface State {
 }
 
 const initialState: State = {
-    units: ["test"],
+    units: [],
     editedUnit: null,
     editedUnitIndex: -1,
 };
@@ -21,7 +21,21 @@ export function unitsReducer(
             return {
                 ...state,
                 units: [...state.units, action.payload]
-            }
+            };
+        case UnitsActions.START_EDIT:
+            let editedUnitIndex = state.units.findIndex(unit => unit === action.payload);
+
+            return {
+                ...state,
+                editedUnit: state.units[editedUnitIndex],
+                editedUnitIndex: editedUnitIndex
+            };
+        case UnitsActions.STOP_EDIT:
+            return {
+                ...state,
+                editedUnit: null,
+                editedUnitIndex: -1
+            };
         default:
             return state;
     }
