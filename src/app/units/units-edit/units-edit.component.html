@@ -26,6 +26,13 @@
                         [disabled]="!f.valid">
                         {{editMode ? 'Update' : 'Add'}}
                     </button>
+                    <button
+                        type="button"
+                        class="btn btn-danger"
+                        [disabled]="!editMode"
+                        (click)="onDelete()">
+                        Delete
+                    </button>
                 </div>
             </div>
         </form>

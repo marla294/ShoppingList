@@ -34,6 +34,17 @@ export class UnitsEditComponent implements OnInit, OnDestroy {
         this.stateSubscription.unsubscribe();
     }
 
+    onClear() {
+        this.unitEditForm.reset();
+        this.editMode = false;
+        this.editedUnitIndex = -1;
+    }
+
+    onDelete() {
+        this.store.dispatch(new UnitsActions.DeleteUnit());
+        this.onClear();
+    }
+
     onSubmit(form: NgForm) {
         let value = form.value;
         if (this.editMode) {
@@ -42,8 +53,6 @@ export class UnitsEditComponent implements OnInit, OnDestroy {
         else {
             this.store.dispatch(new UnitsActions.AddUnit(value.unit));
         }
-        form.reset();
-        this.editMode = false;
-        this.editedUnitIndex = -1;
+        this.onClear();
     }
 }

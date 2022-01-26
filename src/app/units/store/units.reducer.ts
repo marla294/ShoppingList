@@ -22,6 +22,13 @@ export function unitsReducer(
                 ...state,
                 units: [...state.units, action.payload]
             };
+        case UnitsActions.DELETE_UNIT:
+            return {
+                ...state,
+                units: [...state.units].filter((unit, index) => index !== state.editedUnitIndex),
+                editedUnit: null,
+                editedUnitIndex: -1
+            };
         case UnitsActions.START_EDIT:
             const editedUnitIndex = state.units.findIndex(unit => unit === action.payload);
 
