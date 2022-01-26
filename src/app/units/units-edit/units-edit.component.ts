@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'units-edit',
@@ -6,5 +7,9 @@ import { Component } from "@angular/core";
     styleUrls: ['./units-edit.component.css']
 })
 export class UnitsEditComponent {
-    
+    @ViewChild('f', {static: false}) unitEditForm: NgForm;
+
+    onSubmit(form: NgForm) {
+        
+    }
 }
