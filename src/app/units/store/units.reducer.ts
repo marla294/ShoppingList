@@ -22,5 +22,7 @@ export function unitsReducer(
                 ...state,
                 units: [...state.units, action.payload]
             }
+        default:
+            return state;
     }
 }
