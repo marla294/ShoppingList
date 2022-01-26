@@ -11,6 +11,34 @@ import * as UnitsActions from './units.actions';
 export class UnitsEffects {
     private userSub: Subscription;
 
+    fetchUnits = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(
+                UnitsActions.FETCH_UNITS
+            ),
+            switchMap(() => {
+                let userId: any;
+
+                this.userSub = this.store.select('auth')
+                    .pipe(map(authState => {
+                        return authState.user
+                    })).subscribe(user => {
+                        userId = user.id;
+                    });
+
+                this.userSub.unsubscribe();
+
+                return this.http
+                .get<string[]>(
+                    `https://ng-recipe-app-8ece4-default-rtdb.firebaseio.com/${userId}-units.json`
+                );
+            }),
+            map(units => {
+                return new UnitsActions.SetUnits(units);
+            })
+        );
+    });
+
     storeUnits = createEffect(() => {
         return this.actions$.pipe(
             ofType(

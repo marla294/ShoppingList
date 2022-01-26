@@ -7,7 +7,22 @@ export interface State {
 }
 
 const initialState: State = {
-    units: [],
+    units: [
+        "bottle(s)",
+        "box",
+        "can(s)",
+        "dozen",
+        "each",
+        "jar(s)",
+        "gallon(s)",
+        "lb(s)",
+        "link(s)",
+        "oz",
+        "pack",
+        "pint",
+        "tbsp",
+        "tsp",
+    ],
     editedUnit: null,
     editedUnitIndex: -1,
 };
@@ -29,6 +44,17 @@ export function unitsReducer(
                 editedUnit: null,
                 editedUnitIndex: -1
             };
+        case UnitsActions.SET_UNITS:
+            let setUnits = state.units;
+
+            if (action.payload) {
+                setUnits = [...action.payload];
+            }
+
+            return {
+                ...state,
+                units: setUnits
+            }
         case UnitsActions.START_EDIT:
             const editedUnitIndex = state.units.findIndex(unit => unit === action.payload);
 

@@ -19,6 +19,7 @@ export class UnitsEditComponent implements OnInit, OnDestroy {
     constructor(private store: Store<fromApp.AppState>) {}
     
     ngOnInit(): void {
+        this.store.dispatch(new UnitsActions.FetchUnits());
         this.stateSubscription = this.store.select('units').subscribe(state => {
             if (state.editedUnitIndex > -1) {
                 this.editMode = true;
