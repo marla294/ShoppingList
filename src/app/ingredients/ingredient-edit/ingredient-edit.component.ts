@@ -6,6 +6,7 @@ import { Ingredient } from "../ingredient.model";
 import * as fromApp from '../../store/app.reducer';
 import * as IngredientListActions from "../store/ingredient-list.actions";
 import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
+import * as UnitsActions from '../../units/store/units.actions';
 
 @Component({
     selector: 'ingredient-edit',
@@ -16,27 +17,13 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
     @ViewChild('f', {static: false}) ingForm: NgForm;
     @Input() isShoppingList = false;
     subscription: Subscription;
+    unitsSubscription: Subscription;
     editMode = false;
     editedItem: Ingredient;
 
     constructor(private store: Store<fromApp.AppState>) { }
 
-    units = [
-        "bottle(s)",
-        "box",
-        "can(s)",
-        "dozen",
-        "each",
-        "jar(s)",
-        "gallon(s)",
-        "lb(s)",
-        "link(s)",
-        "oz",
-        "pack",
-        "pint",
-        "tbsp",
-        "tsp",
-    ];
+    units: string[] = [];
 
     groceryStores = [
         "Amazon",
@@ -69,6 +56,10 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
 
     ngOnInit(): void {
         this.fetchIngredients();
+        this.store.dispatch(new UnitsActions.FetchUnits());
+        this.unitsSubscription = this.store.select('units').subscribe(unitsState => {
+            this.units = unitsState.units;
+        });
         if (this.isShoppingList) {
             this.subscription = this.store.select('shoppingList').subscribe(stateData => {
                 if (stateData.editedIngredientIndex > -1) {
@@ -138,8 +129,9 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
     }
     
     ngOnDestroy() {
-    this.subscription.unsubscribe();
-    this.stopEdit();
+        this.subscription.unsubscribe();
+        this.unitsSubscription.unsubscribe();
+        this.stopEdit();
     }
 
     private fetchIngredients() {
