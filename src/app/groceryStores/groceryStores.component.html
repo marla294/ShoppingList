@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Manage Grocery Stores</h2>
+            <p>Add, edit and delete the grocery stores that you shop at</p>
+        </div>
+    </div>
+    <hr>
+    <h3>Your grocery stores</h3>
+    <p>Select a grocery store to edit or delete it</p>
+    <ul class="list-group">
+        <a
+            class="list-group-item"
+            style="cursor: pointer;"
+            *ngFor="let groceryStore of groceryStores">
+            {{ groceryStore }}
+        </a>
+    </ul>
+</div>
