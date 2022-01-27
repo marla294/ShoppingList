@@ -27,6 +27,16 @@ const initialState: State = {
     editedUnitIndex: -1,
 };
 
+const unitsSort = (a, b) => {
+    if (a < b) {
+        return -1;
+    }
+    if (a > b) {
+        return 1;
+    }
+    return 0;
+};
+
 export function unitsReducer(
     state: State = initialState, 
     action: UnitsActions.UnitsActions
@@ -35,7 +45,7 @@ export function unitsReducer(
         case UnitsActions.ADD_UNIT:
             return {
                 ...state,
-                units: [...state.units, action.payload]
+                units: [...state.units, action.payload].sort(unitsSort)
             };
         case UnitsActions.DELETE_UNIT:
             return {
@@ -53,7 +63,7 @@ export function unitsReducer(
 
             return {
                 ...state,
-                units: setUnits
+                units: setUnits.sort(unitsSort)
             }
         case UnitsActions.START_EDIT:
             const editedUnitIndex = state.units.findIndex(unit => unit === action.payload);
@@ -75,7 +85,7 @@ export function unitsReducer(
 
             return {
                 ...state,
-                units: updatedUnits
+                units: updatedUnits.sort(unitsSort)
             };
         default:
             return state;
