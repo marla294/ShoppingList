@@ -4,7 +4,7 @@ export interface State {
     units: string[];
     editedUnit: string;
     editedUnitIndex: number;
-}
+};
 
 const initialState: State = {
     units: [
