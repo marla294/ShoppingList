@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Add/Edit Grocery Store</h3>
+            </div>
+        </div>
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    <label for="groceryStore">Grocery Store<span class="required">&nbsp;*</span></label>
+                    <input
+                        type="text"
+                        id="groceryStore"
+                        name="groceryStore"
+                        class="form-control"
+                        ngModel
+                        required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button
+                        type="submit"
+                        class="btn btn-success"
+                        disabled="!f.valid">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
