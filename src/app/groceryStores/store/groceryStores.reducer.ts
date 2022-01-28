@@ -37,6 +37,13 @@ export function groceryStoresReducer(
                 ...state,
                 groceryStores: [...state.groceryStores, action.payload].sort(groceryStoreSort),
             };
+        case GroceryStoresActions.DELETE_GROCERYSTORE:
+            return {
+                ...state,
+                groceryStores: [...state.groceryStores].filter(groceryStore => groceryStore !== state.editedGroceryStore),
+                editedGroceryStore: null,
+                editedGroceryStoreIndex: -1
+            }
         case GroceryStoresActions.START_EDIT:
             let groceryStoreIndex = state.groceryStores.findIndex(groceryStore => groceryStore === action.payload);
 

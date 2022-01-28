@@ -1,6 +1,7 @@
 import { Action } from "@ngrx/store";
 
 export const ADD_GROCERYSTORE = '[Grocery Stores] Add Grocery Store';
+export const DELETE_GROCERYSTORE = '[Grocery Stores] Delete Grocery Store';
 export const START_EDIT = '[Grocery Stores] Start Edit';
 export const STOP_EDIT = '[Grocery Stores] Stop Edit';
 export const UPDATE_GROCERYSTORE = '[Grocery Stores] Update Grocery Store';
@@ -9,6 +10,10 @@ export class AddGroceryStore implements Action {
     readonly type = ADD_GROCERYSTORE;
 
     constructor(public payload: string) {}
+}
+
+export class DeleteGroceryStore implements Action {
+    readonly type = DELETE_GROCERYSTORE;
 }
 
 export class StartEdit implements Action {
@@ -28,6 +33,7 @@ export class UpdateGroceryStore implements Action {
 }
 
 export type GroceryStoresActions = AddGroceryStore
+| DeleteGroceryStore
 | StartEdit
 | StopEdit
 | UpdateGroceryStore;
