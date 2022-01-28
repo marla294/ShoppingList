@@ -35,5 +35,6 @@ export class GroceryStoresEditComponent implements OnInit {
 
     onSubmit(form: NgForm) {
         this.store.dispatch(new GroceryStoresActions.AddGroceryStore(form.value.groceryStore));
+        this.onClear();
     }
 }
