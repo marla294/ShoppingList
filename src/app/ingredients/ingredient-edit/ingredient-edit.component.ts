@@ -7,6 +7,7 @@ import * as fromApp from '../../store/app.reducer';
 import * as IngredientListActions from "../store/ingredient-list.actions";
 import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
 import * as UnitsActions from '../../units/store/units.actions';
+import * as GroceryStoresActions from '../../groceryStores/store/groceryStores.actions';
 
 @Component({
     selector: 'ingredient-edit',
@@ -18,6 +19,7 @@ import * as UnitsActions from '../../units/store/units.actions';
     @Input() isShoppingList = false;
     subscription: Subscription;
     unitsSubscription: Subscription;
+    groceryStoresSubscription: Subscription;
     editMode = false;
     editedItem: Ingredient;
 
@@ -25,12 +27,7 @@ import * as UnitsActions from '../../units/store/units.actions';
 
     units: string[] = [];
 
-    groceryStores = [
-        "Amazon",
-        "HyVee",
-        "Family Fare",
-        "Whole Foods",
-    ];
+    groceryStores: string[] = [];
 
     aisles = [
         "Baby",
@@ -59,6 +56,9 @@ import * as UnitsActions from '../../units/store/units.actions';
         this.store.dispatch(new UnitsActions.FetchUnits());
         this.unitsSubscription = this.store.select('units').subscribe(unitsState => {
             this.units = unitsState.units;
+        });
+        this.groceryStoresSubscription = this.store.select('groceryStores').subscribe(groceryStoresState => {
+            this.groceryStores = groceryStoresState.groceryStores;
         });
         if (this.isShoppingList) {
             this.subscription = this.store.select('shoppingList').subscribe(stateData => {
@@ -131,6 +131,7 @@ import * as UnitsActions from '../../units/store/units.actions';
     ngOnDestroy() {
         this.subscription.unsubscribe();
         this.unitsSubscription.unsubscribe();
+        this.groceryStoresSubscription.unsubscribe();
         this.stopEdit();
     }
 
