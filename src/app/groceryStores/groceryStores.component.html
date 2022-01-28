@@ -13,7 +13,8 @@
         <a
             class="list-group-item"
             style="cursor: pointer;"
-            *ngFor="let groceryStore of groceryStores">
+            *ngFor="let groceryStore of groceryStores"
+            (click)="onEdit(groceryStore)">
             {{ groceryStore }}
         </a>
     </ul>

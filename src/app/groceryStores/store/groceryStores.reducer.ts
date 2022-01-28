@@ -17,6 +17,16 @@ const initialState: State = {
     editedGroceryStoreIndex: -1,
 };
 
+const groceryStoreSort = (a, b) => {
+    if (a < b) {
+        return -1;
+    }
+    if (a > b) {
+        return 1;
+    }
+    return 0;
+};
+
 export function groceryStoresReducer(
     state: State = initialState,
     action: GroceryStoresActions.GroceryStoresActions
@@ -25,8 +35,30 @@ export function groceryStoresReducer(
         case GroceryStoresActions.ADD_GROCERYSTORE:
             return {
                 ...state,
-                groceryStores: [...state.groceryStores, action.payload]
-            }
+                groceryStores: [...state.groceryStores, action.payload].sort(groceryStoreSort),
+            };
+        case GroceryStoresActions.START_EDIT:
+            let groceryStoreIndex = state.groceryStores.findIndex(groceryStore => groceryStore === action.payload);
+
+            return {
+                ...state,
+                editedGroceryStore: action.payload,
+                editedGroceryStoreIndex: groceryStoreIndex,
+            };
+        case GroceryStoresActions.STOP_EDIT:
+            return {
+                ...state,
+                editedGroceryStore: null,
+                editedGroceryStoreIndex: -1,
+            };
+        case GroceryStoresActions.UPDATE_GROCERYSTORE:
+            let editedGroceryStores = [...state.groceryStores];
+            editedGroceryStores[state.editedGroceryStoreIndex] = action.payload;
+
+            return {
+                ...state,
+                groceryStores: editedGroceryStores.sort(groceryStoreSort),
+            };
         default:
             return state;
     }

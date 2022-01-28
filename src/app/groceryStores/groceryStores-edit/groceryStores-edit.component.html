@@ -24,7 +24,7 @@
                         type="submit"
                         class="btn btn-success"
                         [disabled]="!f.valid">
-                        Add
+                        {{editMode ? 'Update' : 'Add'}}
                     </button>
                 </div>
             </div>
