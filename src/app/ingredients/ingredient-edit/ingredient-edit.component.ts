@@ -1,11 +1,10 @@
-import { Component, Input, ViewChild } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 import { Ingredient } from "../ingredient.model";
 import * as fromApp from '../../store/app.reducer';
 import * as IngredientListActions from "../store/ingredient-list.actions";
-import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
 import * as UnitsActions from '../../units/store/units.actions';
 import * as GroceryStoresActions from '../../groceryStores/store/groceryStores.actions';
 
@@ -21,13 +20,8 @@ import * as GroceryStoresActions from '../../groceryStores/store/groceryStores.a
     groceryStoresSubscription: Subscription;
     editMode = false;
     editedItem: Ingredient;
-
-    constructor(private store: Store<fromApp.AppState>) { }
-
     units: string[] = [];
-
     groceryStores: string[] = [];
-
     aisles = [
         "Baby",
         "Bakery",
@@ -49,6 +43,8 @@ import * as GroceryStoresActions from '../../groceryStores/store/groceryStores.a
         "Spices",
         "Wellness",
     ];
+
+    constructor(private store: Store<fromApp.AppState>) { }
 
     ngOnInit(): void {
         this.store.dispatch(new IngredientListActions.FetchIngredients());
