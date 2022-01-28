@@ -14,6 +14,7 @@ import { RecipeEffects } from './recipes/store/recipe.effects';
 import { IngredientListEffects } from './ingredients/store/ingredient-list.effects';
 import { ShoppingListEffects } from './shopping-list/store/shopping-list.effects';
 import { UnitsEffects } from './units/store/units.effects';
+import { GroceryStoresEffects } from './groceryStores/store/groceryStores.effects';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { UnitsEffects } from './units/store/units.effects';
       IngredientListEffects, 
       ShoppingListEffects,
       UnitsEffects,
+      GroceryStoresEffects,
     ]),
     SharedModule,
     CoreModule,

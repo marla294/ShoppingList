@@ -53,6 +53,7 @@ import * as GroceryStoresActions from '../../groceryStores/store/groceryStores.a
     ngOnInit(): void {
         this.store.dispatch(new IngredientListActions.FetchIngredients());
         this.store.dispatch(new UnitsActions.FetchUnits());
+        this.store.dispatch(new GroceryStoresActions.FetchGroceryStores());
         this.unitsSubscription = this.store.select('units').subscribe(unitsState => {
             this.units = unitsState.units;
         });

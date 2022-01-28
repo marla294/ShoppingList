@@ -18,6 +18,7 @@ export class GroceryStoresEditComponent implements OnInit {
     constructor(private store: Store<fromApp.AppState>) {}
 
     ngOnInit(): void {
+        this.store.dispatch(new GroceryStoresActions.FetchGroceryStores());
         this.stateSubscription = this.store.select('groceryStores').subscribe(groceryStoresState => {
             if (groceryStoresState.editedGroceryStoreIndex > -1) {
                 this.editMode = true;
