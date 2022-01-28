@@ -16,7 +16,6 @@ import * as GroceryStoresActions from '../../groceryStores/store/groceryStores.a
   })
   export class IngredientEditComponent {
     @ViewChild('f', {static: false}) ingForm: NgForm;
-    @Input() isShoppingList = false;
     subscription: Subscription;
     unitsSubscription: Subscription;
     groceryStoresSubscription: Subscription;
@@ -52,7 +51,7 @@ import * as GroceryStoresActions from '../../groceryStores/store/groceryStores.a
     ];
 
     ngOnInit(): void {
-        this.fetchIngredients();
+        this.store.dispatch(new IngredientListActions.FetchIngredients());
         this.store.dispatch(new UnitsActions.FetchUnits());
         this.unitsSubscription = this.store.select('units').subscribe(unitsState => {
             this.units = unitsState.units;
@@ -60,70 +59,46 @@ import * as GroceryStoresActions from '../../groceryStores/store/groceryStores.a
         this.groceryStoresSubscription = this.store.select('groceryStores').subscribe(groceryStoresState => {
             this.groceryStores = groceryStoresState.groceryStores;
         });
-        if (this.isShoppingList) {
-            this.subscription = this.store.select('shoppingList').subscribe(stateData => {
-                if (stateData.editedIngredientIndex > -1) {
-                    this.editMode = true;
-                    this.editedItem = stateData.editedIngredient;
-                    this.ingForm.setValue({
-                        name: this.editedItem.name,
-                        units: this.editedItem.units ?? "",
-                        groceryStore: this.editedItem.groceryStore ?? "",
-                        aisle: this.editedItem.aisle ?? "",
-                        amount: this.editedItem.amount ?? ""
-                    });
-                } 
-                else {
-                    this.editMode = false;
-                }
-            });
-        }
-        else {
-            this.subscription = this.store.select('ingredients').subscribe(stateData => {
-                if (stateData.editedIngredientIndex > -1) {
-                    this.editMode = true;
-                    this.editedItem = stateData.editedIngredient;
-                    this.ingForm.setValue({
-                        name: this.editedItem.name,
-                        units: this.editedItem.units ?? "",
-                        groceryStore: this.editedItem.groceryStore ?? "",
-                        aisle: this.editedItem.aisle ?? ""
-                    });
-                } 
-                else {
-                    this.editMode = false;
-                }
-            });
-        }
+        this.subscription = this.store.select('ingredients').subscribe(stateData => {
+            if (stateData.editedIngredientIndex > -1) {
+                this.editMode = true;
+                this.editedItem = stateData.editedIngredient;
+                this.ingForm.setValue({
+                    name: this.editedItem.name,
+                    units: this.editedItem.units ?? "",
+                    groceryStore: this.editedItem.groceryStore ?? "",
+                    aisle: this.editedItem.aisle ?? ""
+                });
+            } 
+            else {
+                this.editMode = false;
+            }
+        });
       }
 
     onSubmit(form: NgForm) {
         const value = form.value;
         const newIngredient = new Ingredient(value.name, null, value.units, value.groceryStore, value.aisle);
-        if (this.isShoppingList) {
-            newIngredient.amount = value.amount;
-        }
         if (this.editMode) {
-            this.updateIngredient(newIngredient);
+            this.store.dispatch(new IngredientListActions.UpdateIngredient(newIngredient));
         }
         else {
-            this.addIngredient(newIngredient);
+            this.store.dispatch(new IngredientListActions.AddIngredient(newIngredient));
         }
-        this.storeIngredients();
-        this.editMode = false;
-        form.reset();
+        this.store.dispatch(new IngredientListActions.StoreIngredients());
+        this.onClear();
     }
 
     onClear() {
         this.ingForm.reset();
         this.editMode = false;
-        this.stopEdit();
+        this.store.dispatch(new IngredientListActions.StopEdit());
     }
 
     onDelete() {
         if (this.editMode) {
-            this.deleteIngredient();
-            this.storeIngredients();
+            this.store.dispatch(new IngredientListActions.DeleteIngredient());
+            this.store.dispatch(new IngredientListActions.StoreIngredients());
         }
         this.onClear();
     }
@@ -132,60 +107,6 @@ import * as GroceryStoresActions from '../../groceryStores/store/groceryStores.a
         this.subscription.unsubscribe();
         this.unitsSubscription.unsubscribe();
         this.groceryStoresSubscription.unsubscribe();
-        this.stopEdit();
-    }
-
-    private fetchIngredients() {
-        if (!this.isShoppingList) {
-            this.store.dispatch(new IngredientListActions.FetchIngredients());
-        }
-        else {
-            this.store.dispatch(new ShoppingListActions.FetchShoppingList());
-        }
-    }
-
-    private updateIngredient(ingredient: Ingredient) {
-        if (!this.isShoppingList) {
-            this.store.dispatch(new IngredientListActions.UpdateIngredient(ingredient));
-        }
-        else {
-            this.store.dispatch(new ShoppingListActions.UpdateIngredient(ingredient));
-        }
-    }
-
-    private addIngredient(ingredient: Ingredient) {
-        if (!this.isShoppingList) {
-            this.store.dispatch(new IngredientListActions.AddIngredient(ingredient));
-        }
-        else {
-            this.store.dispatch(new ShoppingListActions.AddIngredient(ingredient));
-        }
-    }
-
-    private storeIngredients() {
-        if (!this.isShoppingList) {
-            this.store.dispatch(new IngredientListActions.StoreIngredients());
-        }
-        else {
-            this.store.dispatch(new ShoppingListActions.StoreIngredients());
-        }
-    }
-
-    private deleteIngredient() {
-        if (!this.isShoppingList) {
-            this.store.dispatch(new IngredientListActions.DeleteIngredient());
-        }
-        else {
-            this.store.dispatch(new ShoppingListActions.DeleteIngredient());
-        }
-    }
-
-    private stopEdit() {
-        if (!this.isShoppingList) {
-            this.store.dispatch(new IngredientListActions.StopEdit());
-        }
-        else {
-            this.store.dispatch(new ShoppingListActions.StopEdit());
-        }
+        this.onClear();
     }
   }
