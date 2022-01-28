@@ -14,7 +14,6 @@ export class UnitsEditComponent implements OnInit, OnDestroy {
     @ViewChild('f', {static: false}) unitEditForm: NgForm;
     stateSubscription: Subscription;
     editMode = false;
-    editedUnitIndex: number = -1;
 
     constructor(private store: Store<fromApp.AppState>) {}
     
@@ -23,7 +22,6 @@ export class UnitsEditComponent implements OnInit, OnDestroy {
         this.stateSubscription = this.store.select('units').subscribe(state => {
             if (state.editedUnitIndex > -1) {
                 this.editMode = true;
-                this.editedUnitIndex = state.editedUnitIndex;
                 this.unitEditForm.setValue({
                     unit: state.editedUnit
                 });
@@ -38,7 +36,6 @@ export class UnitsEditComponent implements OnInit, OnDestroy {
     onClear() {
         this.unitEditForm.reset();
         this.editMode = false;
-        this.editedUnitIndex = -1;
     }
 
     onDelete() {
