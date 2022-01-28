@@ -24,8 +24,7 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css"
+              "dist/output.css"
             ],
             "scripts": []
           },
@@ -88,7 +87,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "dist/output.css"
             ],
             "scripts": []
           }
