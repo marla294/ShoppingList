@@ -1,16 +1,17 @@
 <div class="w-full h-full flex justify-center py-10 bg-gray-200">
-    <div class="flex flex-col">
-        <button 
-            class="mb-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            (click)="onNewRecipe()"
-            >New Recipe
-        </button>
-        <ul class="w-48 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+    <div class="w-full flex flex-col md:ml-10 ml-1 mr-1">
+        <h2 class="mb-5 text-md font-semibold whitespace-nowrap">My Recipes</h2>
+        <ul class="w-full md:w-3/4 mb-5 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
             <app-recipe-item 
                 *ngFor="let recipeEl of recipes; let i = index"
                 [recipe]="recipeEl"
                 [index]="i">
             </app-recipe-item>
         </ul>
+        <button 
+            class="w-48 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            (click)="onNewRecipe()"
+            >New Recipe
+        </button>
     </div>
 </div>
