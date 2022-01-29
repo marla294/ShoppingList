@@ -12,6 +12,7 @@ import * as AuthActions from '../auth/store/auth.actions';
 export class HeaderComponent implements OnInit, OnDestroy {
     isAuthenticated = false;
     private userSub: Subscription;
+    isDropdownExpanded = false;
 
     constructor(
         private store: Store<fromApp.AppState>,
@@ -25,6 +26,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
         .subscribe(user => {
             this.isAuthenticated = !!user;
         });
+    }
+
+    onToggleDropdown() {
+        this.isDropdownExpanded = !this.isDropdownExpanded;
     }
 
     onLogout() {
