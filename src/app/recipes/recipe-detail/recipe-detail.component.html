@@ -39,8 +39,38 @@
             <h2 class="mb-5 text-md font-semibold whitespace-nowrap">{{recipe.name}}</h2>
             <button 
                 class="mb-5 w-48 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >Manage Recipe <span class="caret"></span>
+                (click)="onToggleDropdown()"
+                >
+                    Manage Recipe <span class="caret"></span>
             </button>
+            <div
+            class="z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700" 
+            *ngIf="isDropdownExpanded">
+                <ul
+                class="py-1">
+                    <li>
+                        <a 
+                        (click)="onAddToShoppingList()"
+                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            Add To Shopping List
+                        </a>
+                    </li>
+                    <li>
+                        <a 
+                        (click)="onEditRecipe()"
+                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            Edit Recipe
+                        </a>
+                    </li>
+                    <li>
+                        <a 
+                        (click)="onDeleteRecipe()"
+                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            Delete Recipe
+                        </a>
+                    </li>
+                </ul>
+            </div>
             <ul class="w-full md:w-3/4 mb-5 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 <li 
                 class="py-2 px-4 w-full border-b border-gray-200 dark:border-gray-600"

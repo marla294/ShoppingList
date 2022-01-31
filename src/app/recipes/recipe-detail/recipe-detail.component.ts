@@ -15,6 +15,7 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   id: number;
+  isDropdownExpanded = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -50,5 +51,9 @@ export class RecipeDetailComponent implements OnInit {
     this.store.dispatch(new RecipeActions.StoreRecipes());
     this.router.navigate(['/recipes']);
   }
+
+  onToggleDropdown() {
+    this.isDropdownExpanded = !this.isDropdownExpanded;
+}
 
 }

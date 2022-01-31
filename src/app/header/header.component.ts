@@ -14,9 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private userSub: Subscription;
     isDropdownExpanded = false;
 
-    constructor(
-        private store: Store<fromApp.AppState>,
-        ) {}
+    constructor(private store: Store<fromApp.AppState>) {}
 
     ngOnInit() {
         this.userSub = this.store.select('auth')
