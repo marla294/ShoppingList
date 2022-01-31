@@ -1,38 +1,3 @@
-<!-- <div class="row">
-    <div class="col-xs-12">
-        <h1>{{recipe.name}}</h1>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12">
-        <div 
-            class="btn-group"
-            appDropdown>
-            <button 
-                type="button" 
-                class="btn btn-primary dropdown-toggle">
-                Manage Recipe <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a (click)="onAddToShoppingList()" style="cursor: pointer;">Add To Shopping List</a></li>
-                <li><a style="cursor: pointer;" (click)="onEditRecipe()">Edit Recipe</a></li>
-                <li><a style="cursor: pointer;" (click)="onDeleteRecipe()">Delete Recipe</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-<br/>
-<div class="row">
-    <div class="col-xs-12">
-        <ul class="list-group">
-            <li 
-                class="list-group-item"
-                *ngFor="let ingredient of recipe.ingredients"
-            >{{ ingredient.name }} - {{ ingredient.amount }} {{ingredient.units}}</li>
-        </ul>
-    </div>
-</div> -->
-
 <div class="h-full">
     <div class="w-full flex justify-center py-10">
         <div class="w-full flex flex-col md:ml-10 ml-1 mr-1">
@@ -44,10 +9,10 @@
                     Manage Recipe <span class="caret"></span>
             </button>
             <div
-            class="z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700" 
+            class="relative" 
             *ngIf="isDropdownExpanded">
                 <ul
-                class="py-1">
+                class="absolute cursor-pointer z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
                     <li>
                         <a 
                         (click)="onAddToShoppingList()"
