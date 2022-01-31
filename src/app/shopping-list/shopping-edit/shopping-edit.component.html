@@ -8,7 +8,8 @@ class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4">
     >
         Add/Edit Ingredient
     </h2>
-        <div class="mb-4">
+    <div class="flex flex-wrap -mx-3 mb-3">
+        <div class="w-1/2 px-3">
             <label 
             for="name"
             class="block text-gray-700 text-sm font-bold mb-2">
@@ -17,7 +18,7 @@ class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4">
             <select
                 type="text"
                 id="name"
-                class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 name="name"
                 ngModel
                 (change)="mySelectHandler($event)"
@@ -27,7 +28,7 @@ class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4">
                 </option>
             </select>
         </div>
-        <div class="pull-left col-xs-9">
+        <div class="w-1/4">
             <label 
             for="amount"
             class="block text-gray-700 text-sm font-bold mb-2">
@@ -42,8 +43,12 @@ class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4">
                 required
                 pattern="^[1-9]+[0-9]*$">
         </div>
-        <span class="col-xs-3 bottom-align-text" *ngIf="editedItem && !newItem">{{editedItem.units}}</span>
-        <span class="col-xs-3 bottom-align-text" *ngIf="newItem">{{newItem.units}}</span>
+        <div class="relative px-3">
+            <span class="absolute bottom-0" *ngIf="editedItem && !newItem">{{editedItem.units}}</span>
+            <span class="absolute bottom-0" *ngIf="newItem">{{newItem.units}}</span>
+        </div>
+        
+    </div>
         <input
                 type="hidden"
                 class="form-control"
@@ -64,22 +69,25 @@ class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4">
                 class="form-control"
                 name="groceryStore"
                 ngModel>
-    <div class="row">
-        <div class="col-xs-12">
-            <button 
-                class="btn btn-success" 
-                type="submit" 
-                [disabled]="!f.valid">
-                {{ editMode ? 'Update' : 'Add'}}
-            </button>
-            <button 
-                *ngIf="editMode"
-                class="btn btn-danger" 
-                type="button" 
-                (click)="onDelete()">
-                Delete
-            </button>
-            <button class="btn btn-primary" type="button" (click)="onClear()">Clear</button>
-        </div>
+    <div>
+        <button 
+            class="mb-5 w-30 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" 
+            type="submit" 
+            [disabled]="!f.valid">
+            {{ editMode ? 'Update' : 'Add'}}
+        </button>
+        <button 
+            *ngIf="editMode"
+            class="mb-5 w-30 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" 
+            type="button" 
+            (click)="onDelete()">
+            Delete
+        </button>
+        <button 
+            class="mb-5 w-30 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" 
+            type="button" 
+            (click)="onClear()">
+            Clear
+        </button>
     </div>
 </form>
