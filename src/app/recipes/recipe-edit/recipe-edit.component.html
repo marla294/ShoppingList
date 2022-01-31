@@ -28,22 +28,23 @@
                 >
             </div>
             <div formArrayName="ingredients" class="mt-5">
-                <!-- <div
-                    class="row"
-                    *ngIf="editIngredient">
+                <h2 class="mb-3 text-md font-semibold whitespace-nowrap" *ngIf="controls.length > 0">Ingredients</h2>
+                <div
+                    class="flex flex-wrap -mx-3 mb-1"
+                    *ngIf="controls.length > 0">
                     <div
-                        class="col-xs-6">
+                        class="w-1/2 px-3">
                         Name
                     </div>
                     <div
-                        class="col-xs-2">
+                        class="w-1/6">
                         Amount
                     </div>
                     <div
-                        class="col-xs-2">
+                        class="w-1/6 ml-3">
                         Units
                     </div>
-                </div> -->
+                </div>
                 <div *ngFor="let ingredientCtrl of controls; let i = index" [formGroupName]="i" class="flex flex-wrap -mx-3 mb-3">
                     <div class="w-1/2 px-3">
                         <select 

@@ -113,6 +113,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   private initForm() {
     let recipeName = '';
     let recipeIngredients = new FormArray([]);
+    this.store.dispatch(new RecipeActions.FetchRecipes());
 
     if (this.editMode) {
       this.storeSub = this.store.select('recipes').pipe(map(recipeState => {
@@ -120,8 +121,10 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
           return index === this.id;
         });
       })).subscribe(recipe => {
-        recipeName = recipe.name;
-        if (recipe['ingredients']) {
+        if (recipe) {
+          recipeName = recipe.name;
+        }
+        if (recipe && recipe['ingredients'] && this.ingredients) {
           for (let ingredient of recipe.ingredients) {
             const ing = this.ingredients.filter(i => i.name == ingredient.name)[0];
             recipeIngredients.push(
@@ -138,13 +141,25 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
             );
           }
         }
+
+        if (this.recipeForm) {
+          this.recipeForm = null;
+        }
+        
+        this.recipeForm = new FormGroup({
+          'name': new FormControl(recipeName, Validators.required),
+          'ingredients': recipeIngredients,
+        });
       });
     }
+    else {
+      this.recipeForm = new FormGroup({
+        'name': new FormControl('', Validators.required),
+        'ingredients': new FormArray([]),
+      });
+    }
+
     
-    this.recipeForm = new FormGroup({
-      'name': new FormControl(recipeName, Validators.required),
-      'ingredients': recipeIngredients,
-    });
   }
 
 }
