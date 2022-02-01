@@ -16,6 +16,7 @@ export class RecipeEffects {
         return this.actions$.pipe(
             ofType(RecipeActions.FETCH_RECIPES),
             switchMap(() => {
+                debugger;
                 let userId: any;
 
                 this.userSub = this.store.select('auth')
