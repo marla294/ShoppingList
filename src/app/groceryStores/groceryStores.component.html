@@ -1,21 +1,19 @@
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <h2>Manage Grocery Stores</h2>
+<div class="h-full">
+    <div class="w-full flex justify-center py-10">
+        <div class="w-full flex flex-col md:mx-10 ml-1 mr-1">
+            <h2 class="text-lg font-semibold whitespace-nowrap">Manage Grocery Stores</h2>
             <p>Add, edit and delete the grocery stores that you shop at</p>
+            <groceryStores-edit></groceryStores-edit>
+            <h3 class="text-md font-semibold whitespace-nowrap">Your grocery stores</h3>
+            <p class="mb-4">Select a grocery store to edit or delete it</p>
+            <ul class="w-full mb-5 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <li
+                    class="py-2 px-4 w-full border-b border-gray-200 dark:border-gray-600 cursor-pointer"
+                    *ngFor="let groceryStore of groceryStores"
+                    (click)="onEdit(groceryStore)">
+                    {{ groceryStore }}
+                </li>
+            </ul>
         </div>
     </div>
-    <groceryStores-edit></groceryStores-edit>
-    <hr>
-    <h3>Your grocery stores</h3>
-    <p>Select a grocery store to edit or delete it</p>
-    <ul class="list-group">
-        <a
-            class="list-group-item"
-            style="cursor: pointer;"
-            *ngFor="let groceryStore of groceryStores"
-            (click)="onEdit(groceryStore)">
-            {{ groceryStore }}
-        </a>
-    </ul>
 </div>
