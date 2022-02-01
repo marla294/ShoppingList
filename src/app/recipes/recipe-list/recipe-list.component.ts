@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 import * as RecipeActions from '../store/recipe.actions';
 
 @Component({
-  selector: 'app-recipe-list',
+  selector: 'recipe-list',
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.css']
 })

@@ -1,101 +1,95 @@
-<div class="row">
-    <div class="col-xs-12">
-        <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
-            <div class="row mb-10">
-                <div class="col-xs-12">
-                    <button 
+<div class="w-full h-full flex justify-center py-10">
+    <div class="w-full max-w-lg">
+        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4" [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+            <h2 class="mb-3 text-lg font-semibold whitespace-nowrap">Add/Edit Recipe</h2>
+            <div>
+                <button 
                     type="submit"
-                    class="btn btn-success mr-10"
+                    class="mb-5 w-30 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                     [disabled]="!recipeForm.valid">
                     Save
-                    </button>
-                    <button 
+                </button>
+                <button 
                     type="button"
-                    class="btn btn-danger"
+                    class="mb-5 ml-3 w-30 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                     (click)="onCancel()">
                     Cancel
-                    </button>
-                </div>
+                </button>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input
-                        type="text"
-                        id="name"
-                        formControlName="name"
-                        class="form-control">
-                    </div>
-                </div>
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                    Recipe Name
+                </label>
+                <input 
+                    type="text"
+                    id="name"
+                    formControlName="name"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                >
             </div>
-            <div class="row">
-                <div class="col-xs-12" formArrayName="ingredients">
+            <div formArrayName="ingredients" class="mt-5">
+                <h2 class="mb-3 text-md font-semibold whitespace-nowrap" *ngIf="controls.length > 0">Ingredients</h2>
+                <div
+                    class="flex flex-wrap -mx-3 mb-1"
+                    *ngIf="controls.length > 0">
                     <div
-                        class="row"
-                        *ngIf="editIngredient">
-                        <div
-                            class="col-xs-6">
-                            Name
-                        </div>
-                        <div
-                            class="col-xs-2">
-                            Amount
-                        </div>
-                        <div
-                            class="col-xs-2">
-                            Units
+                        class="w-1/2 px-3">
+                        Name
+                    </div>
+                    <div
+                        class="w-1/6">
+                        Amount
+                    </div>
+                    <div
+                        class="w-1/6 ml-3">
+                        Units
+                    </div>
+                </div>
+                <div *ngFor="let ingredientCtrl of controls; let i = index" [formGroupName]="i" class="flex flex-wrap -mx-3 mb-3">
+                    <div class="w-1/2 px-3">
+                        <select 
+                            type="text"
+                            formControlName="name"
+                            (ngModelChange)="mySelectHandler($event, i)"
+                            class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                            <option *ngFor="let ingredient of ingredients" [value]="ingredient.name">
+                                {{ingredient.name}}
+                            </option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>
                         </div>
                     </div>
-                    <div 
-                    class="row"
-                    *ngFor="let ingredientCtrl of controls; let i = index"
-                    [formGroupName]="i"
-                    style="margin-top: 10px">
-                        <div class="col-xs-6">
-                            <select
-                                type="text"
-                                class="form-control"
-                                formControlName="name"
-                                (ngModelChange)="mySelectHandler($event, i)">
-                                <option *ngFor="let ingredient of ingredients" [value]="ingredient.name">
-                                    {{ingredient.name}}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-xs-2">
-                            <input
-                            type="text"
-                            class="form-control"
-                            formControlName="amount">
-                        </div>
-                        <div class="col-xs-2">
-                            <input
-                            type="text"
-                            class="form-control"
-                            formControlName="units"
-                            readonly>
-                        </div>
-                        <input
+                    <input
+                        type="text"
+                        class="shadow appearance-none border rounded w-1/6 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        formControlName="amount">
+                    <input
+                        type="text"
+                        class="shadow appearance-none border rounded w-1/6 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-3"
+                        formControlName="units"
+                        readonly>
+                    <input
                         type="hidden"
                         class="form-control"
                         formControlName="groceryStore">
-                        <input
+                    <input
                         type="hidden"
                         class="form-control"
                         formControlName="aisle">
-                        <div class="col-xs-2">
-                            <button 
-                            type="button"
-                            (click)="onDeleteIngredient(i)"
-                            class="btn btn-danger">X</button>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row col-xs-12">
-                        <button type="button" class="btn btn-success" (click)="onAddIngredient()">Add Ingredient</button>
-                    </div>
+                    <button 
+                        type="button"
+                        class="ml-3 w-1/10 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                        (click)="onDeleteIngredient(i)">
+                        X
+                    </button>
                 </div>
+                <button 
+                    type="button" 
+                    class="mb-5 w-40 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" 
+                    (click)="onAddIngredient()"
+                    >Add Ingredient
+                </button>
             </div>
         </form>
     </div>

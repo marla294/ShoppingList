@@ -1,34 +1,48 @@
-<div class="row">
-    <div class="col-xs-12">
-        <h1>{{recipe.name}}</h1>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12">
-        <div 
-            class="btn-group"
-            appDropdown>
+<div class="h-full">
+    <div class="w-full flex justify-center py-10">
+        <div class="w-full flex flex-col md:ml-10 ml-1 mr-1">
+            <h2 class="mb-5 text-md font-semibold whitespace-nowrap">{{recipe.name}}</h2>
             <button 
-                type="button" 
-                class="btn btn-primary dropdown-toggle">
-                Manage Recipe <span class="caret"></span>
+                class="mb-5 w-48 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                (click)="onToggleDropdown()"
+                >
+                    Manage Recipe <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu">
-                <li><a (click)="onAddToShoppingList()" style="cursor: pointer;">Add To Shopping List</a></li>
-                <li><a style="cursor: pointer;" (click)="onEditRecipe()">Edit Recipe</a></li>
-                <li><a style="cursor: pointer;" (click)="onDeleteRecipe()">Delete Recipe</a></li>
+            <div
+            class="relative" 
+            *ngIf="isDropdownExpanded">
+                <ul
+                class="absolute cursor-pointer z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
+                    <li>
+                        <a 
+                        (click)="onAddToShoppingList()"
+                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            Add To Shopping List
+                        </a>
+                    </li>
+                    <li>
+                        <a 
+                        (click)="onEditRecipe()"
+                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            Edit Recipe
+                        </a>
+                    </li>
+                    <li>
+                        <a 
+                        (click)="onDeleteRecipe()"
+                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            Delete Recipe
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <ul class="w-full md:w-3/4 mb-5 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <li 
+                class="py-2 px-4 w-full border-b border-gray-200 dark:border-gray-600"
+                *ngFor="let ingredient of recipe.ingredients">
+                    {{ ingredient.name }} - {{ ingredient.amount }} {{ingredient.units}}
+                </li>
             </ul>
         </div>
-    </div>
-</div>
-<br/>
-<div class="row">
-    <div class="col-xs-12">
-        <ul class="list-group">
-            <li 
-                class="list-group-item"
-                *ngFor="let ingredient of recipe.ingredients"
-            >{{ ingredient.name }} - {{ ingredient.amount }} {{ingredient.units}}</li>
-        </ul>
     </div>
 </div>

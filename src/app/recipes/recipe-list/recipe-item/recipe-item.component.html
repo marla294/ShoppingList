@@ -1,9 +1,10 @@
-<a
-    style="cursor: pointer;"
-    [routerLink]="[index]"
-    routerLinkActive="active"
-    class="list-group-item clearfix">
-    <div class="pull-left">
-        <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
-    </div>
-</a>
+<li class="py-2 px-4 w-full border-b border-gray-200 dark:border-gray-600">
+    <a
+        style="cursor: pointer;"
+        [routerLink]="[index]"
+        routerLinkActive="active">
+        <div class="pull-left">
+            <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
+        </div>
+    </a>
+</li>

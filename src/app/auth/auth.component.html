@@ -1,8 +1,5 @@
-<div class="row">
+<div class="w-full h-full flex justify-center py-10">
     <div class="col-xs-12 col-md-6 col-offset-3">
-        <!-- <div class="alert alert-danger" *ngIf="error">
-            <p>{{ error }}</p>
-        </div> -->
         <app-alert 
         [message]="error" 
         *ngIf="error"
@@ -10,12 +7,21 @@
         <div *ngIf="isLoading" style="text-align: center">
             <app-loading-spinner></app-loading-spinner>
         </div>
-        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
-            <div class="form-group">
-                <label for="email">Email</label>
+    </div>
+    <div class="w-full max-w-xs">
+        <form 
+        #authForm="ngForm" 
+        (ngSubmit)="onSubmit(authForm)" 
+        *ngIf="!isLoading" 
+        class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                    Email
+                </label>
                 <input 
                     type="email" 
-                    class="form-control" 
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Email"
                     id="email" 
                     ngModel 
                     name="email"
@@ -23,11 +29,14 @@
                     email
                 />
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                    Password
+                </label>
                 <input 
                     type="password" 
-                    class="form-control" 
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Password"
                     id="password" 
                     ngModel
                     name="password"
@@ -35,15 +44,17 @@
                     minlength="6"
                 />
             </div>
-            <div>
+            <div class="flex items-center justify-between">
                 <button 
-                    class="btn btn-primary" 
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
                     type="submit"
-                    [disabled]="!authForm.valid"
-                >
+                    [disabled]="!authForm.valid">
                     {{ isLoginMode ? 'Login' : 'Sign Up' }}
-                </button> | 
-                <button class="btn btn-primary" (click)="onSwitchMode()" type="button">
+                </button>
+                <button 
+                    class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" 
+                    (click)="onSwitchMode()" 
+                    type="button">
                     Switch To {{ isLoginMode ? 'Sign Up' : 'Login' }}
                 </button>
             </div>
