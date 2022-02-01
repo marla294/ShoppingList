@@ -1,47 +1,47 @@
-<div class="row">
-    <div class="col-xs-12">
-        <div class="row">
-            <div class="col-xs-12">
-                <h3>Add/Edit Grocery Store</h3>
-            </div>
+<form 
+    (ngSubmit)="onSubmit(f)" 
+    #f="ngForm"
+    class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4">
+    <h2 
+        class="mb-3 text-lg font-semibold whitespace-nowrap">
+        Add/Edit Grocery Store
+    </h2>
+    <div class="flex flex-wrap -mx-3 mb-3">
+        <div class="w-full px-3">
+            <label 
+                for="groceryStore"
+                class="block text-gray-700 text-sm font-bold mb-2">
+                Grocery Store<span class="required">&nbsp;*</span>
+            </label>
+            <input
+                type="text"
+                id="groceryStore"
+                name="groceryStore"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                ngModel
+                required>
         </div>
-        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-            <div class="row">
-                <div class="col-xs-12 form-group">
-                    <label for="groceryStore">Grocery Store<span class="required">&nbsp;*</span></label>
-                    <input
-                        type="text"
-                        id="groceryStore"
-                        name="groceryStore"
-                        class="form-control"
-                        ngModel
-                        required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <button
-                        type="submit"
-                        class="btn btn-success"
-                        [disabled]="!f.valid">
-                        {{editMode ? 'Update' : 'Add'}}
-                    </button>
-                    <button
-                        type="button"
-                        class="btn btn-danger"
-                        [disabled]="!f.valid"
-                        (click)="onDelete()">
-                        Delete
-                    </button>
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        [disabled]="!f.valid"
-                        (click)="onClear()">
-                        Clear Form
-                    </button>
-                </div>
-            </div>
-        </form>
     </div>
-</div>
+    <div>
+        <button
+            type="submit"
+            class="mb-5 w-30 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            [disabled]="!f.valid">
+            {{editMode ? 'Update' : 'Add'}}
+        </button>
+        <button
+            type="button"
+            class="mb-5 w-30 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            [disabled]="!f.valid"
+            (click)="onDelete()">
+            Delete
+        </button>
+        <button
+            type="button"
+            class="mb-5 w-30 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            [disabled]="!f.valid"
+            (click)="onClear()">
+            Clear Form
+        </button>
+    </div>
+</form>
