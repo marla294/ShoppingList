@@ -1,21 +1,20 @@
-<div class="container">
+<div class="h-full">
     <shopping-edit></shopping-edit>
-    <hr>
-    <div class="row">
-        <div class="col-xs-12">
-            <button class="btn btn-primary" type="button" (click)="onClear()">Clear Shopping List</button>
-        </div>
-    </div>
+    <button 
+        class="mb-5 w-30 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" 
+        type="button" 
+        (click)="onClear()">
+        Clear Shopping List
+    </button>
     <div *ngFor="let group of ingredientsByGroceryStore">
-        <h4>{{group.groceryStore}}</h4>
-        <ul class="list-group">
-            <a 
-                class="list-group-item" 
-                style="cursor: pointer;"
+        <h2 class="mb-3 text-md font-semibold whitespace-nowrap">{{group.groceryStore}}</h2>
+        <ul class="w-full md:w-3/4 mb-5 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <li 
+                class="py-2 px-4 w-full border-b border-gray-200 dark:border-gray-600 cursor-pointer"
                 *ngFor="let ingredient of group.ingredients"
                 (click)="onEditItem(ingredient)">
                 {{ ingredient.name }} - {{ ingredient.amount }} {{ ingredient.units }}
-            </a>
+            </li>
         </ul>
     </div>
 </div>
