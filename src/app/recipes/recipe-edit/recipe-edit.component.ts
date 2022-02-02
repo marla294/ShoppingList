@@ -113,7 +113,11 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   private initForm() {
     let recipeName = '';
     let recipeIngredients = new FormArray([]);
-    this.store.dispatch(new RecipeActions.FetchRecipes());
+
+    this.recipeForm = new FormGroup({
+      'name': new FormControl('', Validators.required),
+      'ingredients': new FormArray([]),
+    });
 
     if (this.editMode) {
       this.storeSub = this.store.select('recipes').pipe(map(recipeState => {
@@ -143,25 +147,11 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
             }
           }
         }
-
-        if (this.recipeForm) {
-          this.recipeForm = null;
-        }
-        
         this.recipeForm = new FormGroup({
           'name': new FormControl(recipeName, Validators.required),
           'ingredients': recipeIngredients,
         });
       });
     }
-    else {
-      this.recipeForm = new FormGroup({
-        'name': new FormControl('', Validators.required),
-        'ingredients': new FormArray([]),
-      });
-    }
-
-    
   }
-
 }
