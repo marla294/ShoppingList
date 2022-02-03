@@ -23,6 +23,20 @@ const ingredientListSort = (a, b) => {
     return 0;
 };
 
+const setIngredientsIds = (ingredients: Ingredient[]) => {
+    return ingredients.map((ingredient) => {
+        if (ingredient && !ingredient.id) {
+            return {
+                ...ingredient,
+                id: (new Date()).getTime().toString()
+            }
+        }
+        else {
+            return { ...ingredient }
+        }
+    });
+}
+
 export function ingredientListReducer(
     state: State = initialState,
     action: IngredientListActions.IngredientListActions
@@ -35,7 +49,7 @@ export function ingredientListReducer(
                 const ingredientsSorted = ingredients.sort(ingredientListSort);
                 return {
                     ...state,
-                    ingredients: ingredientsSorted
+                    ingredients: [...setIngredientsIds([...ingredientsSorted])]
                 };
             }
             else {
@@ -44,7 +58,7 @@ export function ingredientListReducer(
         case IngredientListActions.ADD_INGREDIENTS:
             return {
                 ...state,
-                ingredients: [...state.ingredients, ...action.payload]
+                ingredients: [...setIngredientsIds([...state.ingredients, ...action.payload])]
             };
         case IngredientListActions.UPDATE_INGREDIENT:
             const ingredient = state.ingredients[state.editedIngredientIndex]
@@ -59,7 +73,7 @@ export function ingredientListReducer(
 
             return {
                 ...state,
-                ingredients: updatedIngredientsSorted,
+                ingredients: [...setIngredientsIds([...updatedIngredientsSorted])],
                 editedIngredientIndex: -1,
                 editedIngredient: null
             };
@@ -74,7 +88,7 @@ export function ingredientListReducer(
             if (action.payload) {
                 return {
                     ...state,
-                    ingredients: [...action.payload]
+                    ingredients: [...setIngredientsIds([...action.payload])]
                 };
             }
             else {

@@ -64,7 +64,8 @@ import * as GroceryStoresActions from '../../groceryStores/store/groceryStores.a
                     name: this.editedItem.name,
                     units: this.editedItem.units ?? "",
                     groceryStore: this.editedItem.groceryStore ?? "",
-                    aisle: this.editedItem.aisle ?? ""
+                    aisle: this.editedItem.aisle ?? "",
+                    id: this.editedItem.id ?? ""
                 });
             } 
             else {
@@ -75,7 +76,7 @@ import * as GroceryStoresActions from '../../groceryStores/store/groceryStores.a
 
     onSubmit(form: NgForm) {
         const value = form.value;
-        const newIngredient = new Ingredient(value.name, null, value.units, value.groceryStore, value.aisle);
+        const newIngredient = new Ingredient(value.name, null, value.units, value.groceryStore, value.aisle, value.id);
         if (this.editMode) {
             this.store.dispatch(new IngredientListActions.UpdateIngredient(newIngredient));
         }
