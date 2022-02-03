@@ -130,22 +130,26 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         }
         if (recipe && recipe['ingredients'] && this.ingredients) {
           for (let ingredient of recipe.ingredients) {
-            const ing = this.ingredients.filter(i => i.name == ingredient.name)[0];
-            if (ing) {
-              recipeIngredients.push(
-                new FormGroup({
-                  'name': new FormControl(ingredient.name, Validators.required),
-                  'amount': new FormControl(ingredient.amount, [
-                    Validators.required,
-                    Validators.pattern(/^[1-9]+[0-9]*$/)
-                  ]),
-                  'units': new FormControl(ing.units),
-                  'groceryStore': new FormControl(ing.groceryStore),
-                  'aisle': new FormControl(ing.aisle),
-                })
-              );
+            let ing = this.ingredients.filter(i => i.id == ingredient.id)[0];
+            if (!ing) {
+              ing = new Ingredient(ingredient.name, ingredient.amount, ingredient.units ?? null, ingredient.groceryStore ?? null, ingredient.aisle ?? null, (new Date()).getTime().toString());
+              this.store.dispatch(new IngredientActions.AddIngredient(ing));
             }
+            recipeIngredients.push(
+              new FormGroup({
+                'name': new FormControl(ingredient.name, Validators.required),
+                'amount': new FormControl(ingredient.amount, [
+                  Validators.required,
+                  Validators.pattern(/^[1-9]+[0-9]*$/)
+                ]),
+                'units': new FormControl(ing.units),
+                'groceryStore': new FormControl(ing.groceryStore),
+                'aisle': new FormControl(ing.aisle),
+                'id': new FormControl(ing.id),
+              })
+            );
           }
+          this.store.dispatch(new IngredientActions.StoreIngredients());
         }
         this.recipeForm = new FormGroup({
           'name': new FormControl(recipeName, Validators.required),
