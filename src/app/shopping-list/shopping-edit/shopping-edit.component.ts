@@ -40,6 +40,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
           groceryStore: this.editedItem.groceryStore ?? "",
           aisle: this.editedItem.aisle ?? "",
           units: this.editedItem.units ?? "",
+          id: this.editedItem.id ?? "",
         });
       } else {
         this.editMode = false;
@@ -58,6 +59,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
           groceryStore: ingredient.groceryStore ?? "",
           aisle: ingredient.aisle ?? "",
           units: ingredient.units ?? "",
+          id: ingredient.id ?? "",
         });
       }
     }
@@ -65,7 +67,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   onSubmit(form: NgForm) {
     const value = form.value;
-    const newIngredient = new Ingredient(value.name, value.amount, value.units, value.groceryStore, value.aisle);
+    const newIngredient = new Ingredient(value.name, value.amount, value.units, value.groceryStore, value.aisle, value.id);
     if (this.editMode) {
       this.store.dispatch(
         new ShoppingListActions.UpdateIngredient(newIngredient)
