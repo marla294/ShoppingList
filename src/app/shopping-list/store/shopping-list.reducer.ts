@@ -105,7 +105,7 @@ export function shoppingListReducer(
             if (action.payload) {
                 setIngredients = [...action.payload];
             }
-
+            
             return {
                 ...state,
                 ingredients: setIngredients

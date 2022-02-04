@@ -43,7 +43,6 @@ export class IngredientListEffects {
             withLatestFrom(this.store.select('ingredients')),
             switchMap(([actionData, ingredientsState]) => {
                 let userId: any;
-
                 this.userSub = this.store.select('auth')
                     .pipe(map(authState => {
                         return authState.user;
