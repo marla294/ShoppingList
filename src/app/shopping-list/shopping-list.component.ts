@@ -14,13 +14,13 @@ export class ShoppingListComponent implements OnInit {
     ingredients: Ingredient[];
     groceryStores: string[] = [];
     ingredientsByGroceryStore: any = [];
-    ingredientsSubscription: Subscription;
+    shoppingListSubscription: Subscription;
 
     constructor(private store: Store<fromApp.AppState>) { }
 
     ngOnInit(): void {
         this.store.dispatch(new ShoppingListActions.FetchShoppingList());
-        this.ingredientsSubscription = this.store.select('shoppingList').subscribe(state => {
+        this.shoppingListSubscription = this.store.select('shoppingList').subscribe(state => {
             this.ingredients = state.ingredients;
             this.getGroceryStores();
             this.groupIngredientsByGroceryStore();
@@ -58,6 +58,6 @@ export class ShoppingListComponent implements OnInit {
     }
 
     ngOnDestroy(): void {
-        this.ingredientsSubscription.unsubscribe();
+        this.shoppingListSubscription.unsubscribe();
     }
 }
