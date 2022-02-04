@@ -74,6 +74,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         'units': new FormControl(null),
         'groceryStore': new FormControl(null),
         'aisle': new FormControl(null),
+        'id': new FormControl(null),
       })
     );
   }
@@ -87,7 +88,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   get controls() {
-    return (<FormArray>this.recipeForm.get('ingredients')).controls
+    return (<FormArray>this.recipeForm.get('ingredients')).controls;
   }
 
   ngOnDestroy() {
@@ -106,6 +107,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         (<FormArray>this.recipeForm.get('ingredients'))["controls"][index].patchValue({units: ingredient.units});
         (<FormArray>this.recipeForm.get('ingredients'))["controls"][index].patchValue({groceryStore: ingredient.groceryStore});
         (<FormArray>this.recipeForm.get('ingredients'))["controls"][index].patchValue({aisle: ingredient.aisle});
+        (<FormArray>this.recipeForm.get('ingredients'))["controls"][index].patchValue({id: ingredient.id});
       }
     }
   }
@@ -128,16 +130,12 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         if (recipe) {
           recipeName = recipe.name;
         }
-        if (recipe && recipe['ingredients'] && this.ingredients) {
+        if (recipe && recipe['ingredients'] && this.ingredients && this.ingredients.length > 0) {
           for (let ingredient of recipe.ingredients) {
             let ing = this.ingredients.filter(i => i.id == ingredient.id)[0];
-            if (!ing) {
-              ing = new Ingredient(ingredient.name, ingredient.amount, ingredient.units ?? null, ingredient.groceryStore ?? null, ingredient.aisle ?? null, (new Date()).getTime().toString());
-              this.store.dispatch(new IngredientActions.AddIngredient(ing));
-            }
             recipeIngredients.push(
               new FormGroup({
-                'name': new FormControl(ingredient.name, Validators.required),
+                'name': new FormControl(ing.name, Validators.required),
                 'amount': new FormControl(ingredient.amount, [
                   Validators.required,
                   Validators.pattern(/^[1-9]+[0-9]*$/)
@@ -149,7 +147,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
               })
             );
           }
-          this.store.dispatch(new IngredientActions.StoreIngredients());
         }
         this.recipeForm = new FormGroup({
           'name': new FormControl(recipeName, Validators.required),
